@@ -3,6 +3,7 @@
 #include <iostream>
 #include <algorithm>
 #include <string>
+#include <stdlib.h>
 
 #include "includes/node.hpp"
 #include "includes/functions.hpp"
@@ -28,6 +29,8 @@ int main(){
     std::vector<int> node_index;
     std::vector<int> modified_lines_index;
 
+    std::vector<sf::Vertex> lineas_coloreadas;
+
     //banderas para la interactividad
     bool sprite_selected = false;
     bool mouse_button_pressed = false;
@@ -52,20 +55,34 @@ int main(){
             else if(sf::Keyboard::isKeyPressed(sf::Keyboard::Num1)){
                 //aqui va el prim
                 std::cout<< "El prim" << std::endl;
+                if (vertices.size() > 0 && edges.size() > 0){
+                    for (auto &a : edges)
+                        a.peso = random() %10;
+                    std::vector<edge> prim_mst = prim(vertices, edges);
+                    
+                    for (auto &elem : prim_mst){
+                        lineas_coloreadas.push_back(sf::Vertex(sprites[elem.nodes[0]].getPosition()));
+                        lineas_coloreadas.push_back(sf::Vertex(sprites[elem.nodes[1]].getPosition()));
+                    }
+                    for (auto &l : lineas_coloreadas)
+                        l.color = sf::Color::Green;
+                }
+                else
+                    std::cout << "No hay como hacer el prim mi chavo" << std::endl;
             }
             else if(sf::Keyboard::isKeyPressed(sf::Keyboard::Num2)){
                 //aqui va el otro
                 std::cout << "El otro" << std::endl;
             }
-            else if(sf::Keyboard::isKeyPressed(sf::Keyboard::G)){
-                // generar un gafo
-                int n_vertices, n_aristas;
-                std::cout << "Cuantos vertices quieres? ";
-                std::cin >> n_vertices;
+            // else if(sf::Keyboard::isKeyPressed(sf::Keyboard::G)){
+            //     // generar un gafo
+            //     int n_vertices, n_aristas;
+            //     std::cout << "Cuantos vertices quieres? ";
+            //     std::cin >> n_vertices;
                 
-                //voy a tomarlo primero como que es conexo
+            //     //voy a tomarlo primero como que es conexo
                 
-            }
+            // }
             //interactividad
             else if (event.type == sf::Event::MouseButtonPressed && event.mouseButton.button == sf::Mouse::Left){
                 sf::Vector2f mouse = window.mapPixelToCoords(sf::Mouse::getPosition(window));
@@ -74,12 +91,17 @@ int main(){
                     if (is_sprite(mouse, sprites)){
                         int index = get_sprite_index(mouse, sprites);
                         std::cout << "Mira!, el sprite " << index << "!!!" << std::endl;
-                        // std::cout << sprites[index].getPosition().x << " " << sprites[index].getPosition().y << " " << vertices[index].x << " " << vertices[index].y << std::endl;
+
                         if(sprite_selected){
                             mouse_points.push_back(mouse);
                             connected_lines.push_back(mouse_points);
                             node_index.push_back(index);
                             connected_nodes_index.push_back(node_index);
+                            vertices[node_index[0]].arista_index.push_back(edges.size());
+                            vertices[node_index[1]].arista_index.push_back(edges.size());
+                            edge arista;
+                            arista.nodes = node_index;
+                            edges.push_back(arista);
                             lineas.push_back(sf::Vertex(mouse_points[0]));
                             lineas.push_back(sf::Vertex(mouse_points[1]));
                             
@@ -194,6 +216,9 @@ int main(){
         }
         if (lineas.size() > 0)
             window.draw(&lineas[0],lineas.size(), sf::Lines);
+
+        if(lineas_coloreadas.size() > 0)
+            window.draw(&lineas_coloreadas[0], lineas_coloreadas.size(), sf::Lines);
 
         window.display();
 
