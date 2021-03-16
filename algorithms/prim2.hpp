@@ -9,11 +9,13 @@
 #pragma once
 
 int get_min_index(const std::vector<edge> &aristas, const std::vector<bool> vertices_explorados){
-    int min_index = 0;
-
+    int min_index = -1;
+    int min_value = 1024;
     for (int i = 0; i < aristas.size(); ++i){
-        if (vertices_explorados[i] == false && aristas[i].peso < aristas[min_index].peso)
+        if (vertices_explorados[i] == false && aristas[i].peso < min_value){
             min_index = i;
+            min_value = aristas[i].peso;
+        }
     }
 
     return min_index;
@@ -56,6 +58,8 @@ std::vector<int> prim(const std::vector<node> &vertices, std::vector<edge> arist
     int min_arista_index;
     while (!aristas_por_explorar.empty()){
         min_arista_index = get_min_index(aristas, vertices_explorados);
+        if(min_arista_index == -1)
+            break;
         remove_min(min_arista_index, aristas_por_explorar);
         int u,v;
         u = aristas[min_arista_index].nodes[0];
