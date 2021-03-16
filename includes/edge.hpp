@@ -6,7 +6,7 @@
 
 struct edge{
         float peso;
-        std::vector<int> nodes; //de mi lista de verices, cuales estan conectados
+        std::vector<int> nodes; //de mi lista de verices, cuales conecto con esta arista
         bool colored = false;
 
         // edge(float peso, std::vector<node> nodes);

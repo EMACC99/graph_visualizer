@@ -2,17 +2,20 @@
 
 ## Librerias Requiridas:
 * SFML
+* g++
+* make
 
 ## Instrucciones de compilacion
 
 ### Instalar la libreria:
-Para correr el programa se necesita la siguente libreria:
+Para correr el programa se necesitan las siguentes librerias:
 ```
 libsfml-dev
+build-essential
 ```
 Se puede instalar con el manejador de paquetes preferido: eg 
 ```
-sudo apt install libsfml-dev
+sudo apt install libsfml-dev build-essential
 ```
 
 ### Compilacion

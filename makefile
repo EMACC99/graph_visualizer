@@ -2,7 +2,7 @@ CC=g++
 CFLAGS=-c -Wall -std=c++14
 LDFLAGS=
 LIBFLAGS=-lsfml-graphics -lsfml-window -lsfml-system
-SOURCES=main.cpp includes/functions.hpp includes/node.hpp includes/edge.hpp algorithms/prim.hpp
+SOURCES=main.cpp includes/functions.hpp includes/node.hpp includes/edge.hpp algorithms/prim2.hpp
 OBJECTS=$(SOURCES:.cpp=.o)
 EXECUTABLE=sfml-app.o
 BINDIR=/usr/bin

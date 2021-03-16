@@ -9,7 +9,7 @@
 #include "includes/functions.hpp"
 #include "includes/edge.hpp"
 
-#include "algorithms/prim.hpp"
+#include "algorithms/prim2.hpp"
 
 int main(){
     // SFML declarations
@@ -52,17 +52,18 @@ int main(){
             if (event.type == sf::Event::Closed)
                 window.close();
             
-            else if(sf::Keyboard::isKeyPressed(sf::Keyboard::Num1)){
+            else if(sf::Keyboard::isKeyPressed(sf::Keyboard::Num1) || sf::Keyboard::isKeyPressed(sf::Keyboard::Numpad1)){
                 //aqui va el prim
+                lineas_coloreadas.clear();
                 std::cout<< "El prim" << std::endl;
                 if (vertices.size() > 0 && edges.size() > 0){
                     for (auto &a : edges)
                         a.peso = random() %10;
-                    std::vector<edge> prim_mst = prim(vertices, edges);
+                    std::vector<int> prim_mst = prim(vertices, edges);
                     
                     for (auto &elem : prim_mst){
-                        lineas_coloreadas.push_back(sf::Vertex(sprites[elem.nodes[0]].getPosition()));
-                        lineas_coloreadas.push_back(sf::Vertex(sprites[elem.nodes[1]].getPosition()));
+                        lineas_coloreadas.push_back(sf::Vertex(sprites[edges[elem].nodes[0]].getPosition()));
+                        lineas_coloreadas.push_back(sf::Vertex(sprites[edges[elem].nodes[1]].getPosition()));
                     }
                     for (auto &l : lineas_coloreadas)
                         l.color = sf::Color::Green;
