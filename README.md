@@ -71,4 +71,5 @@ Ejecutando el de Krsukal
 ![Kruskal](Images/kruskal_mst.png)
 
 Los de los unit test:
+
 ![UnitTest](Images/unit_test.png)
