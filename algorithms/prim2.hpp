@@ -8,7 +8,7 @@
 #include "../includes/edge.hpp"
 #pragma once
 
-int get_min_index(const std::vector<edge> &aristas, const std::vector<bool> vertices_explorados){
+int get_min_index(const std::vector<edge> &aristas, const std::vector<bool> vertices_explorados){ //no son las aristas, es aristas por explorar
     int min_index = -1;
     int min_value = 1024;
     for (int i = 0; i < aristas.size(); ++i){
@@ -35,7 +35,7 @@ void remove_min (const int &min_index, std::priority_queue<int> &aristas_por_exp
     for (int i = 0; i < n; ++i){
         value = aristas_por_explorar.top();
         if (value != min_index)
-            new_aristas.push(value);
+            new_aristas.push(value);    
         
         aristas_por_explorar.pop();
     }
@@ -66,7 +66,7 @@ std::vector<int> prim(const std::vector<node> &vertices, std::vector<edge> arist
         v = aristas[min_arista_index].nodes[1];
 
         if(vertices_explorados[v] == false){
-            arbol.push_back(min_arista_index);
+            arbol.push_back(min_arista_index); //esta regresando que el minimo es el mismo, por no quitarlo, tengo que marcar el minimo como 
             vertices_explorados[v] = true;
             
             for (int i = 0; i <  vertices[v].arista_index.size(); ++i){

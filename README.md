@@ -46,6 +46,7 @@ El programa tiene por ahora, tres funcionalidades basicas:
 * Añadir un nodo  -> dando click
 * Unir dos nodos -> dando click a dos nodos
 * Mover los nodos -> presionando la rueda del mouse sobre el nodo y mover el mouse sin soltarlo
+* Ejecutar prim -> presionar tecla `1` o `Numpad1`
 
 ## Programa
 
@@ -54,3 +55,7 @@ El programa se ve asi:
 ![Funcionamiento](Images/Funcionamiento.png)
 ![Funcionamiento2](Images/Funcionamiento2.png)
 ![Funcionamiento3](Images/Funcionamiento3.png)
+
+Y despues de ejecutar Prim:
+
+![Funcionamiento](Imagenes/prim_mst.png)

@@ -9,7 +9,7 @@
 #include "includes/functions.hpp"
 #include "includes/edge.hpp"
 
-#include "algorithms/prim2.hpp"
+#include "algorithms/prim3.hpp"
 
 int main(){
     // SFML declarations
@@ -59,11 +59,11 @@ int main(){
                 if (vertices.size() > 0 && edges.size() > 0){
                     for (auto &a : edges)
                         a.peso = random() %10;
-                    std::vector<int> prim_mst = prim(vertices, edges);
+                    std::vector<edge> prim_mst = prim(vertices, edges);
                     
                     for (auto &elem : prim_mst){
-                        lineas_coloreadas.push_back(sf::Vertex(sprites[edges[elem].nodes[0]].getPosition()));
-                        lineas_coloreadas.push_back(sf::Vertex(sprites[edges[elem].nodes[1]].getPosition()));
+                        lineas_coloreadas.push_back(sf::Vertex(sprites[elem.nodes[0]].getPosition()));
+                        lineas_coloreadas.push_back(sf::Vertex(sprites[elem.nodes[1]].getPosition()));
                     }
                     for (auto &l : lineas_coloreadas)
                         l.color = sf::Color::Green;
