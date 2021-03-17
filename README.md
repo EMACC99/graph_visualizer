@@ -46,7 +46,9 @@ El programa tiene por ahora, tres funcionalidades basicas:
 * Añadir un nodo  -> dando click
 * Unir dos nodos -> dando click a dos nodos
 * Mover los nodos -> presionando la rueda del mouse sobre el nodo y mover el mouse sin soltarlo
-* Ejecutar prim -> presionar tecla `1` o `Numpad1`
+* Ejecutar Prim -> presionar tecla `1` o `Numpad1`
+* Ejecutar Kruskal -> presionar tecla `2` o `Numpad2`
+* Limpiear las lineas coloreadas -> presionar tecla `0` o `Numpad0`
 
 ## Programa
 
@@ -58,4 +60,7 @@ El programa se ve asi:
 
 Y despues de ejecutar Prim:
 
-![Funcionamiento](Images/prim_mst.png)
+![Prim](Images/prim_mst.png)
+
+Ejecutando el de Krsukal
+![Kruskal](Images/kruskal_mst.png)
