@@ -3,14 +3,14 @@
 #include <iostream>
 #include <algorithm>
 #include <string>
-#include <stdlib.h>
+#include <cstdlib>
 
 #include "includes/node.hpp"
 #include "includes/functions.hpp"
 #include "includes/edge.hpp"
 
 #include "algorithms/prim3.hpp"
-
+#include "algorithms/kruskal.hpp"
 int main(){
     // SFML declarations
     sf::RenderWindow window(sf::VideoMode(500,500), "Prim y kruscal");
@@ -73,17 +73,22 @@ int main(){
             }
             else if(sf::Keyboard::isKeyPressed(sf::Keyboard::Num2)){
                 //aqui va el otro
-                std::cout << "El otro" << std::endl;
+                lineas_coloreadas.clear();
+                std::cout << "El Kruskal" << std::endl;
+                if (vertices.size() > 0 && edges.size() > 0){
+                    for (auto &a : edges)
+                        a.peso = random() % 10;
+                    std::vector<edge> kruskal_mst = kusrkal(vertices,edges);
+
+                    for (auto &elem: kruskal_mst){
+                        lineas_coloreadas.push_back(sf::Vertex(sprites[elem.nodes[0]].getPosition()));
+                        lineas_coloreadas.push_back(sf::Vertex(sprites[elem.nodes[1]].getPosition()));
+                    }
+                    for (auto &l : lineas_coloreadas)
+                        l.color = sf::Color::Red;
+                }
             }
-            // else if(sf::Keyboard::isKeyPressed(sf::Keyboard::G)){
-            //     // generar un gafo
-            //     int n_vertices, n_aristas;
-            //     std::cout << "Cuantos vertices quieres? ";
-            //     std::cin >> n_vertices;
-                
-            //     //voy a tomarlo primero como que es conexo
-                
-            // }
+
             //interactividad
             else if (event.type == sf::Event::MouseButtonPressed && event.mouseButton.button == sf::Mouse::Left){
                 sf::Vector2f mouse = window.mapPixelToCoords(sf::Mouse::getPosition(window));
