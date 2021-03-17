@@ -30,7 +30,7 @@ Y automaticamente generara el binario llamado `sfml-app.o`
 ### A Mano:
 Si no se desea usar el makefile, se puede hacer de la siguente manera
 ```
-g++ -c main.cpp includes/edge.hpp includes/edge.hpp includes/node.hpp algorithms/prim.hpp
+g++ -c main.cpp includes/functions.hpp includes/node.hpp includes/edge.hpp algorithms/prim3.hpp algorithms/kruskal.hpp
 
 g++ main.o -o sfml-app.o -lsfml-graphics -lsfml-window -lsfml-system
 ```
