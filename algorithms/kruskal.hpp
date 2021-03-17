@@ -22,6 +22,7 @@ std::vector<edge> kusrkal(std::vector<node> &vertices, const std::vector<edge> &
     std::vector<edge> kruskal_aristas = aristas;
     std::sort(kruskal_aristas.begin(), kruskal_aristas.end(), compare()); //las ordenamos por peso
     std::vector<int> padres (vertices.size());
+    
     for (auto &elem : padres)
         elem = -1;
     

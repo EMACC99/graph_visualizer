@@ -11,6 +11,7 @@
 
 #include "algorithms/prim3.hpp"
 #include "algorithms/kruskal.hpp"
+
 int main(){
     // SFML declarations
     sf::RenderWindow window(sf::VideoMode(500,500), "Prim y kruscal");
@@ -51,7 +52,11 @@ int main(){
         while(window.pollEvent(event)){
             if (event.type == sf::Event::Closed)
                 window.close();
-            
+            else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Num0) || sf::Keyboard::isKeyPressed(sf::Keyboard::Numpad0)){
+                if (lineas_coloreadas.size() > 0)
+                    lineas_coloreadas.clear();
+            }
+
             else if(sf::Keyboard::isKeyPressed(sf::Keyboard::Num1) || sf::Keyboard::isKeyPressed(sf::Keyboard::Numpad1)){
                 //aqui va el prim
                 lineas_coloreadas.clear();
@@ -71,7 +76,7 @@ int main(){
                 else
                     std::cout << "No hay como hacer el prim mi chavo" << std::endl;
             }
-            else if(sf::Keyboard::isKeyPressed(sf::Keyboard::Num2)){
+            else if(sf::Keyboard::isKeyPressed(sf::Keyboard::Num2) || sf::Keyboard::isKeyPressed(sf::Keyboard::Numpad2)){
                 //aqui va el otro
                 lineas_coloreadas.clear();
                 std::cout << "El Kruskal" << std::endl;
@@ -87,6 +92,8 @@ int main(){
                     for (auto &l : lineas_coloreadas)
                         l.color = sf::Color::Red;
                 }
+                else
+                    std::cout << "No hay como hacer el kruskal, ni modo" << std::endl;
             }
 
             //interactividad
