@@ -14,7 +14,7 @@
 
 int main(){
     // SFML declarations
-    sf::RenderWindow window(sf::VideoMode(500,500), "Prim y kruscal");
+    sf::RenderWindow window(sf::VideoMode(500,500), "Visualizador de grafos");
     sf::Texture texture;
 
     //cosas del grafo
