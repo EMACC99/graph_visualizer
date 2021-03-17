@@ -58,4 +58,4 @@ El programa se ve asi:
 
 Y despues de ejecutar Prim:
 
-![Funcionamiento](Imagenes/prim_mst.png)
+![Funcionamiento](Images/prim_mst.png)
