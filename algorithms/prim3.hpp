@@ -9,11 +9,11 @@
 #pragma once
 
 
-struct compare{  //para ordenarlos por peso en la queue
-    bool operator()(const edge & a, const edge & b){
-        return a.peso > b.peso;
-    }
-};
+// struct compare{  //para ordenarlos por peso en la queue
+//     bool operator()(const edge & a, const edge & b){
+//         return a.peso > b.peso;
+//     }
+// };
 
 std::vector<edge> prim(const std::vector<node> &vertices, const std::vector<edge> &aristas){
     std::vector<bool> vertices_explorados;
