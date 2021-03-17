@@ -63,4 +63,5 @@ Y despues de ejecutar Prim:
 ![Prim](Images/prim_mst.png)
 
 Ejecutando el de Krsukal
+
 ![Kruskal](Images/kruskal_mst.png)
