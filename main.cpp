@@ -12,7 +12,21 @@
 #include "algorithms/prim3.hpp"
 #include "algorithms/kruskal.hpp"
 
-int main(){
+#include "tests/tests.hpp"
+
+int main(int argc, char *argv[]){
+// cosas para el unit test
+    if (argc == 2){
+        std::string arg = argv[1];
+        if (arg == "test"){
+            test();
+            return 0; //corre los test y finaliza el programa
+        }   
+    }
+    else{ //si me pasas muchos argumentos o uno que no es, continua con el programa
+        std::cout << "muchos argumentos, solo quiero uno >:(" << std::endl;
+    }
+
     // SFML declarations
     sf::RenderWindow window(sf::VideoMode(500,500), "Visualizador de grafos");
     sf::Texture texture;

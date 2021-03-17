@@ -40,7 +40,11 @@ Para ejecutar el programa, hay que poner en una terminal el siguente comando:
 ```
 ./sfml-app.o
 ```
-
+Para correr la parte de test de los algoritmos
+```
+./sfml-app.o test
+```
+Si se le pasan otros argumentos, continuara la ejecucion normal del programa
 ## Funcionalidades
 El programa tiene por ahora, tres funcionalidades basicas:
 * Añadir un nodo  -> dando click
@@ -65,3 +69,6 @@ Y despues de ejecutar Prim:
 Ejecutando el de Krsukal
 
 ![Kruskal](Images/kruskal_mst.png)
+
+Los de los unit test:
+![UnitTest](Images/unit_test.png)
