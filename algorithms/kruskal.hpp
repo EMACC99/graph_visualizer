@@ -8,10 +8,21 @@
 #include "../includes/node.hpp"
 #include "../includes/edge.hpp"
 
-int raiz(const int &u, const std::vector<int> &padres){
-    if (padres[u] != -1)
-        return raiz(padres[u], padres);
-    return u;
+// int raiz(const int &u, const std::vector<int> &padres){
+//     if (padres[u] != -1)
+//         return raiz(padres[u], padres);
+//     return u;
+// }
+
+int raiz(const int &u, std::vector<int> & padres){
+    int p = padres[u];
+    if (p == -1)
+        return u;
+    else{
+        int r = raiz(p,padres);
+        padres[u] = r;
+        return r;
+    }
 }
 
 void juntar(const int &u, const int &v, std::vector<int> &padres){

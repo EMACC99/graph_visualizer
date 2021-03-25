@@ -29,7 +29,7 @@ std::vector<edge> prim(const std::vector<node> &vertices, const std::vector<edge
         u = s.nodes[0];
         v = s.nodes[1];
 
-        if (vertices_explorados[v] == false){
+        if (!vertices_explorados[v]){
             arbol.push_back(s);
             vertices_explorados[v] = true;
             for (int i = 0; i < vertices[v].arista_index.size(); ++i){ 
@@ -39,11 +39,11 @@ std::vector<edge> prim(const std::vector<node> &vertices, const std::vector<edge
                 else
                     w = aristas[vertices[v].arista_index[i]].nodes[1];
                 
-                if (vertices_explorados[w] == false)
+                if (!vertices_explorados[w])
                     aristas_por_explorar.push(aristas[vertices[v].arista_index[i]]);
             }
         }
-        else if(vertices_explorados[u] == false){
+        else if(!vertices_explorados[u]){
             arbol.push_back(s);
             vertices_explorados[u] = true;
 
@@ -55,7 +55,7 @@ std::vector<edge> prim(const std::vector<node> &vertices, const std::vector<edge
                 else
                     w = aristas[vertices[u].arista_index[i]].nodes[1];
 
-                if (vertices_explorados[w] == false){
+                if (!vertices_explorados[w]){
                     aristas_por_explorar.push(aristas[vertices[u].arista_index[i]]);
                 }
             }
