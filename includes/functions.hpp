@@ -61,7 +61,8 @@ void call_erdos_rentyi(std::vector<edge> &aristas, std::vector<node> &vertices, 
 }
 
 void display_erdos_rentyi(std::vector<edge> &aristas, std::vector<node> &vertices, std::vector<sf::Sprite> &sprites, std::vector<sf::Vertex> &lineas,
-    const sf::RenderWindow &window, const sf::Texture &texture){
+                            const sf::RenderWindow &window, const sf::Texture &texture){
+                                
         sf::Vector2u win_size = window.getSize();
         for (auto &v : vertices){
             float x = static_cast<float> (rand()) / static_cast <float> (RAND_MAX/(win_size.x - 50));
