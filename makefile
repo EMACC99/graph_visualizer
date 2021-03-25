@@ -1,10 +1,10 @@
 CC=g++
-CFLAGS=-c -Wall -std=c++14
+CFLAGS=-c -Wall -std=c++17
 LDFLAGS=
 LIBFLAGS=-lsfml-graphics -lsfml-window -lsfml-system
 SOURCES=main.cpp includes/functions.hpp includes/node.hpp includes/edge.hpp algorithms/prim3.hpp algorithms/kruskal.hpp algorithms/grafos_aleatorios.hpp tests/tests.hpp 
 OBJECTS=$(SOURCES:.cpp=.o)
-EXECUTABLE=sfml-app.o
+EXECUTABLE=sfml-app
 BINDIR=/usr/bin
 
 all: $(SOURCES) $(EXECUTABLE)
@@ -16,7 +16,7 @@ $(EXECUTABLE): $(OBJECTS)
 	$(CC) $(CFLAGS) $< -o $@ $(LIBFLAGS)
 
 clean:
-	rm *.o algorithms/*.o $(EXECUTABLE)
+	rm *.o $(EXECUTABLE)
 
 install:
 	#install -s $(EXECUTABLE) $(BINDIR)
