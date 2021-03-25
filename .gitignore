@@ -7,7 +7,7 @@
 *.o
 *.obj
 main
-
+sfml-app*
 # Precompiled Headers
 *.gch
 *.pch
