@@ -1,3 +1,5 @@
+#pragma once
+
 #include <vector>
 #include <algorithm>
 #include <iostream>
@@ -6,7 +8,6 @@
 
 #include "../includes/node.hpp"
 #include "../includes/edge.hpp"
-#pragma once
 
 std::vector<edge> prim(const std::vector<node> &vertices, const std::vector<edge> &aristas){
     std::vector<bool> vertices_explorados;

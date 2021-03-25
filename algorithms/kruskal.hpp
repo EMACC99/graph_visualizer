@@ -1,3 +1,5 @@
+#pragma once
+
 #include <vector>
 #include <algorithm>
 #include <iostream>
@@ -5,7 +7,6 @@
 
 #include "../includes/node.hpp"
 #include "../includes/edge.hpp"
-#pragma once
 
 int raiz(const int &u, const std::vector<int> &padres){
     if (padres[u] != -1)

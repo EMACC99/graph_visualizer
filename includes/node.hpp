@@ -1,7 +1,6 @@
-#include <SFML/Graphics.hpp>
+#pragma once
 #include <vector>
 #include <algorithm>
-#pragma once
 
 struct node{
         int root_id;

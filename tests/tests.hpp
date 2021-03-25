@@ -1,3 +1,5 @@
+#pragma once
+
 #include <vector>
 #include <algorithm>
 #include <string>
@@ -8,7 +10,6 @@
 #include "../includes/edge.hpp"
 #include "../includes/node.hpp"
 
-#pragma once
 
 
 void test(){

@@ -11,6 +11,7 @@
 
 #include "algorithms/prim3.hpp"
 #include "algorithms/kruskal.hpp"
+#include "algorithms/grafos_aleatorios.hpp"
 
 #include "tests/tests.hpp"
 
@@ -28,7 +29,7 @@ int main(int argc, char *argv[]){
     }
 
     // SFML declarations
-    sf::RenderWindow window(sf::VideoMode(500,500), "Visualizador de grafos");
+    sf::RenderWindow window(sf::VideoMode(1000,1000), "Visualizador de grafos");
     sf::Texture texture;
 
     //cosas del grafo
@@ -108,6 +109,42 @@ int main(int argc, char *argv[]){
                 }
                 else
                     std::cout << "No hay como hacer el kruskal, ni modo" << std::endl;
+            }
+            else if (sf::Keyboard::isKeyPressed((sf::Keyboard::Num3)) || sf::Keyboard::isKeyPressed((sf::Keyboard::Numpad3))){
+                edges.clear();
+                vertices.clear();
+                sprites.clear();
+                lineas.clear();
+                int n;
+                float p;
+                std::cout << "Cuantos nodos quieres?: "; 
+                std::cin >> n;
+                std::cout << "Con cuanta probabilidad?: ";
+                std::cin >> p;
+
+                erdos_renyi(n, p, edges, vertices);
+                for (auto &v : vertices){
+                    float x = static_cast<float> (rand()) / static_cast <float> (RAND_MAX/500);
+                    float y = static_cast<float> (rand()) / static_cast <float> (RAND_MAX/500);
+                    v.x = x;
+                    v.y = y;
+                    sf::Vector2f pos(x,y);
+                    sf::Sprite sprite = create_sprite(texture, pos);
+                    sprites.push_back(sprite);
+                }
+
+                for (auto &e: edges){
+                    float nodo1_x = vertices[e.nodes[0]].x;
+                    float nodo1_y = vertices[e.nodes[0]].y;
+
+                    float nodo2_x = vertices[e.nodes[1]].x;
+                    float nodo2_y = vertices[e.nodes[1]].y;
+
+                    sf::Vector2f pos1 (nodo1_x,nodo1_y);
+                    sf::Vector2f pos2 (nodo2_x, nodo2_y);
+                    lineas.push_back(sf::Vertex(pos1));
+                    lineas.push_back(sf::Vertex(pos2));
+                }
             }
 
             //interactividad

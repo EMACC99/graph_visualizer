@@ -1,8 +1,7 @@
-#include <SFML/Graphics.hpp>
+#pragma once
 #include <vector>
 #include <algorithm>
 #include "node.hpp"
-#pragma once
 
 struct edge{
         float peso;
