@@ -123,6 +123,15 @@ int main(int argc, char *argv[]){
                 call_random_tree(edges, vertices);
                 display_random_graph(edges, vertices, sprites, lineas, window, texture);
             }
+            else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Num6) || sf::Keyboard::isKeyPressed(sf::Keyboard::Numpad6)){
+                window.clear();
+                edges.clear();
+                vertices.clear();
+                sprites.clear();
+                lineas.clear();
+                random_conex_graph(edges, vertices);
+                display_random_graph(edges, vertices, sprites, lineas, window, texture);
+            }
             //interactividad
             else if (event.type == sf::Event::MouseButtonPressed && event.mouseButton.button == sf::Mouse::Left){
                 sf::Vector2f mouse = window.mapPixelToCoords(sf::Mouse::getPosition(window));
