@@ -12,7 +12,6 @@
 
 #define MAX_WEIGHT 25; 
 
-#pragma once
 sf::Sprite create_sprite(const sf::Texture &texture, const sf::Vector2f &mouse){
     sf::Sprite sprite;
     sprite.setTexture(texture);
@@ -92,6 +91,14 @@ void call_erdos_rentyi(std::vector<edge> &aristas, std::vector<node> &vertices, 
         std::cin >> p;
         erdos_renyi(n, p, aristas, vertices);
     }
+    assign_random_weights_to_edge(aristas);
+}
+
+void random_conex_graph(std::vector<edge> &aristas, std::vector<node> &vertices){
+    int n;
+    std:: cout << "Cuantos nodos quieres?: ";
+    std::cin >> n;
+    grafo_conexo_aleatorio(n, aristas, vertices);
     assign_random_weights_to_edge(aristas);
 }
 
