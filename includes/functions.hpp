@@ -1,8 +1,16 @@
+#pragma once
+
 #include <SFML/Graphics.hpp>
 #include<vector>
+#include <string>
 #include "node.hpp"
 #include "edge.hpp"
 #include "../algorithms/grafos_aleatorios.hpp"
+#include "../algorithms/kruskal.hpp"
+#include "../algorithms/prim3.hpp"
+
+
+#define MAX_WEIGHT 25; 
 
 #pragma once
 sf::Sprite create_sprite(const sf::Texture &texture, const sf::Vector2f &mouse){
@@ -41,6 +49,32 @@ int get_sprite_index(const sf::Vector2f &mouse, const std::vector<sf::Sprite> &s
     return -1;
 }
 
+void assign_random_weights_to_edge(std::vector<edge> &aristas){        
+    for (auto &a : aristas)
+        a.peso = random() % MAX_WEIGHT;
+}
+
+void create_lineas_coloreadas(std::vector<sf::Vertex> &lineas_coloreadas, const std::vector<edge> &mst, const std::vector<sf::Sprite> &sprites){
+
+    for (auto &elem: mst){
+        lineas_coloreadas.push_back(sf::Vertex(sprites[elem.nodes[0]].getPosition()));
+        lineas_coloreadas.push_back(sf::Vertex(sprites[elem.nodes[1]].getPosition()));
+    }
+}
+
+std::vector<edge> call_mst(std::vector<edge> &aristas, std::vector<node> &vertices, std::string type){
+    if (aristas[0].peso == 0)
+        assign_random_weights_to_edge(aristas);
+    std::vector<edge> mst;
+    if (vertices.size() > 0 && aristas.size() > 0){
+        if (type == "Kruskal")
+            mst = kusrkal(vertices,aristas);
+        else if(type == "Prim")
+            mst = prim(vertices,aristas);
+    }
+    return mst;
+}
+
 void call_erdos_rentyi(std::vector<edge> &aristas, std::vector<node> &vertices, bool m_edges = false){
     int n;
     std::cout << "Cuantos nodos quieres?: "; 
@@ -58,9 +92,18 @@ void call_erdos_rentyi(std::vector<edge> &aristas, std::vector<node> &vertices, 
         std::cin >> p;
         erdos_renyi(n, p, aristas, vertices);
     }
+    assign_random_weights_to_edge(aristas);
 }
 
-void display_erdos_rentyi(std::vector<edge> &aristas, std::vector<node> &vertices, std::vector<sf::Sprite> &sprites, std::vector<sf::Vertex> &lineas,
+void call_random_tree(std::vector<edge> &aristas, std::vector<node> &vertices, bool binary_tree = false){
+    int n;
+    std::cout << "Cuantos nodos quieres? ";
+    std::cin >> n;
+    arbol_aleatorio(n, aristas, vertices);
+    assign_random_weights_to_edge(aristas);
+}
+
+void display_random_graph(std::vector<edge> &aristas, std::vector<node> &vertices, std::vector<sf::Sprite> &sprites, std::vector<sf::Vertex> &lineas,
                             const sf::RenderWindow &window, const sf::Texture &texture){
                                 
         sf::Vector2u win_size = window.getSize();

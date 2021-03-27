@@ -16,6 +16,7 @@
 #include "tests/tests.hpp"
 
 int main(int argc, char *argv[]){
+    srand(time(NULL)); //semilla pal random
 // cosas para el unit test
     if (argc == 2){
         std::string arg = argv[1];
@@ -51,7 +52,7 @@ int main(int argc, char *argv[]){
     bool sprite_selected = false;
     bool mouse_button_pressed = false;
     std::string mouse_button = "";
-    std::vector<int> mo1;
+    // std::vector<int> mo1;
 
     //index para mover el sprite interactivamente
     int global_sprite_index;
@@ -76,57 +77,51 @@ int main(int argc, char *argv[]){
                 //aqui va el prim
                 lineas_coloreadas.clear();
                 std::cout<< "El prim" << std::endl;
-                if (vertices.size() > 0 && edges.size() > 0){
-                    for (auto &a : edges)
-                        a.peso = random() %10;
-                    std::vector<edge> prim_mst = prim(vertices, edges);
-                    
-                    for (auto &elem : prim_mst){
-                        lineas_coloreadas.push_back(sf::Vertex(sprites[elem.nodes[0]].getPosition()));
-                        lineas_coloreadas.push_back(sf::Vertex(sprites[elem.nodes[1]].getPosition()));
-                    }
-                    for (auto &l : lineas_coloreadas)
-                        l.color = sf::Color::Green;
-                }
-                else
-                    std::cout << "No hay como hacer el prim mi chavo" << std::endl;
+                
+                std::vector<edge> prim_mst = call_mst(edges, vertices, "Prim");
+                create_lineas_coloreadas(lineas_coloreadas, prim_mst, sprites);
+                for (auto &l : lineas_coloreadas)
+                    l.color = sf::Color::Green;
+                
             }
             else if(sf::Keyboard::isKeyPressed(sf::Keyboard::Num2) || sf::Keyboard::isKeyPressed(sf::Keyboard::Numpad2)){
                 //aqui va el otro
                 lineas_coloreadas.clear();
                 std::cout << "El Kruskal" << std::endl;
-                if (vertices.size() > 0 && edges.size() > 0){
-                    for (auto &a : edges)
-                        a.peso = random() % 10;
-                    std::vector<edge> kruskal_mst = kusrkal(vertices,edges);
 
-                    for (auto &elem: kruskal_mst){
-                        lineas_coloreadas.push_back(sf::Vertex(sprites[elem.nodes[0]].getPosition()));
-                        lineas_coloreadas.push_back(sf::Vertex(sprites[elem.nodes[1]].getPosition()));
-                    }
-                    for (auto &l : lineas_coloreadas)
-                        l.color = sf::Color::Red;
-                }
-                else
-                    std::cout << "No hay como hacer el kruskal, ni modo" << std::endl;
+                std::vector<edge> kusrkal_mst = call_mst(edges, vertices, "Kruskal");
+                
+                create_lineas_coloreadas(lineas_coloreadas, kusrkal_mst, sprites);
+                for (auto &l : lineas_coloreadas)
+                    l.color = sf::Color::Red;
+
             }
-            else if (sf::Keyboard::isKeyPressed((sf::Keyboard::Num3)) || sf::Keyboard::isKeyPressed((sf::Keyboard::Numpad3))){
+            else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Num3) || sf::Keyboard::isKeyPressed(sf::Keyboard::Numpad3)){
                 window.clear();
                 edges.clear();
                 vertices.clear();
                 sprites.clear();
                 lineas.clear();
                 call_erdos_rentyi(edges, vertices);
-                display_erdos_rentyi(edges, vertices, sprites, lineas, window,texture);
+                display_random_graph(edges, vertices, sprites, lineas, window,texture);
             }
-            else if (sf::Keyboard::isKeyPressed((sf::Keyboard::Num4)) || sf::Keyboard::isKeyPressed((sf::Keyboard::Numpad4))){
+            else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Num4) || sf::Keyboard::isKeyPressed(sf::Keyboard::Numpad4)){
                 window.clear();
                 edges.clear();
                 vertices.clear();
                 sprites.clear();
                 lineas.clear();
                 call_erdos_rentyi(edges, vertices,true);
-                display_erdos_rentyi(edges, vertices, sprites, lineas, window,texture);
+                display_random_graph(edges, vertices, sprites, lineas, window,texture);
+            }
+            else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Num5) || sf::Keyboard::isKeyPressed(sf::Keyboard::Numpad5)){
+                window.clear();
+                edges.clear();
+                vertices.clear();
+                sprites.clear();
+                lineas.clear();
+                call_random_tree(edges, vertices);
+                display_random_graph(edges, vertices, sprites, lineas, window, texture);
             }
             //interactividad
             else if (event.type == sf::Event::MouseButtonPressed && event.mouseButton.button == sf::Mouse::Left){
@@ -146,6 +141,7 @@ int main(int argc, char *argv[]){
                             vertices[node_index[1]].arista_index.push_back(edges.size());
                             edge arista;
                             arista.nodes = node_index;
+                            arista.peso = 0;
                             edges.push_back(arista);
                             lineas.push_back(sf::Vertex(mouse_points[0]));
                             lineas.push_back(sf::Vertex(mouse_points[1]));
@@ -204,7 +200,6 @@ int main(int argc, char *argv[]){
                             for (int i = 0; i < lineas.size(); ++i){
                                 if (sprites[global_sprite_index].getGlobalBounds().contains(lineas[i].position))
                                     modified_lines_index.push_back(i);
-
                             }
                         }
 
@@ -216,15 +211,12 @@ int main(int argc, char *argv[]){
                             for (int i = 0; i < modified_lines_index.size(); ++i)
                                 lineas[modified_lines_index[i]].position = sprites[global_sprite_index].getPosition();
                         }
-                        
                         sprite_selected = true;
                     }
                     else{
-
                         std::cout << "aqui no hay nada mi chavo" << std::endl; 
                         mouse_button_pressed = false;
                     }
-                    
                 }
             }
             else if (event.type == sf::Event::MouseMoved && mouse_button == "Middle"){
@@ -255,20 +247,17 @@ int main(int argc, char *argv[]){
             }
 
         window.clear();
-        for (auto &s: sprites){
-            window.draw(s);
-            // std::cout<< s.getPosition().x << " " << s.getPosition().y << std::endl;
-        }
         if (lineas.size() > 0)
             window.draw(&lineas[0],lineas.size(), sf::Lines);
 
         if(lineas_coloreadas.size() > 0)
             window.draw(&lineas_coloreadas[0], lineas_coloreadas.size(), sf::Lines);
+        
+        for (auto &s: sprites)
+            window.draw(s);
 
         window.display();
-
         }
     }
-
     return 0;
 }
