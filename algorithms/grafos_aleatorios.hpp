@@ -97,11 +97,11 @@ void arbol_aleatorio(int n, std::vector<edge> &aristas, std::vector<node> & vert
 // si no tienen dos aristas, si no los unes, si si, escoge otro al azar. necesita tener n-1 aristas para funcionar, despues de eso, las aristas ya pueden estar en el lugar que sea
 
 
-void grafo_conexo_aleatorio(int n,std::vector<edge> & aristas, std::vector<node> & vertices){
+void grafo_conexo_aleatorio(int n,std::vector<edge> & aristas, std::vector<node> & vertices){ 
     
     // create_nodes(vertices, n);
 
-    int num_aristas = rand() % 2*n + n ;//no es lo mejor pero genera numeros entre n y 2n
+    int num_aristas = rand() % 2*n + n+1 ;//no es lo mejor pero genera numeros entre n + 1 y 2n, si no le sumo el uno no me sale un gafo
     int v,u;
     arbol_aleatorio(n, aristas, vertices);
     for (int i = n;  i <  num_aristas; ++ i){ // pues tenemos que partir de algun lugar no?
