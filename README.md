@@ -25,12 +25,12 @@ Para compilar el programa, se puede correr el `makefile` incluido, para eso, sol
 ```
 make
 ```
-Y automaticamente generara el binario llamado `sfml-app.o`
+Y automaticamente generara el binario llamado `sfml-app`
 
 ### A Mano:
 Si no se desea usar el makefile, se puede hacer de la siguente manera
 ```
-g++ -c main.cpp includes/functions.hpp includes/node.hpp includes/edge.hpp algorithms/prim3.hpp algorithms/kruskal.hpp tests/tests.hpp
+g++ -c main.cpp includes/functions.hpp includes/node.hpp includes/edge.hpp algorithms/prim3.hpp algorithms/kruskal.hpp algorithms/grafos_aleatorios.hpp tests/tests.hpp
 
 g++ main.o -o sfml-app.o -lsfml-graphics -lsfml-window -lsfml-system
 ```
@@ -38,11 +38,11 @@ g++ main.o -o sfml-app.o -lsfml-graphics -lsfml-window -lsfml-system
 ### Ejecucion
 Para ejecutar el programa, hay que poner en una terminal el siguente comando:
 ```
-./sfml-app.o
+./sfml-app
 ```
 Para correr la parte de test de los algoritmos
 ```
-./sfml-app.o test
+./sfml-app test
 ```
 Si se le pasan otros argumentos, continuara la ejecucion normal del programa
 ## Funcionalidades
