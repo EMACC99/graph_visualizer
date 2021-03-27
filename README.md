@@ -53,7 +53,10 @@ El programa tiene por ahora, tres funcionalidades basicas:
 * Ejecutar Prim -> presionar tecla `1` o `Numpad1`
 * Ejecutar Kruskal -> presionar tecla `2` o `Numpad2`
 * Limpiear las lineas coloreadas -> presionar tecla `0` o `Numpad0`
-
+* Ejecutar Erdős–Rényi -> presionar tecla `3` o `Numpad3`
+* Ejecutar Erdős–Rényi con m aristas -> tecla `4` o `Numpad4`
+* Generar un Arbol Aleaotrio con n vertices -> tecla `5` o `Numpad5`
+* Generar una Grafica Conexa aleatoria con n vertices -> tecla `6` o `Numpad6`
 ## Programa
 
 El programa se ve asi:
@@ -73,3 +76,4 @@ Ejecutando el de Krsukal
 Los de los unit test:
 
 ![UnitTest](Images/unit_test.png)
+
