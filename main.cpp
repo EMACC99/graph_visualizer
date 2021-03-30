@@ -25,7 +25,7 @@ int main(int argc, char *argv[]){
             return 0; //corre los test y finaliza el programa
         }   
     }
-    else{ //si me pasas muchos argumentos o uno que no es, continua con el programa
+    else if (argc > 2){ //si me pasas muchos argumentos o uno que no es, continua con el programa
         std::cout << "muchos argumentos, solo quiero uno >:(" << std::endl;
     }
 
