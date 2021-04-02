@@ -8,11 +8,11 @@
 #include "../algorithms/grafos_aleatorios.hpp"
 #include "../algorithms/kruskal.hpp"
 #include "../algorithms/prim3.hpp"
-
+#include "globals.hpp"
 
 #define MAX_WEIGHT 25; 
 
-sf::Sprite create_sprite(const sf::Texture &texture, const sf::Vector2f &mouse){
+sf::Sprite create_sprite(const sf::Vector2f &mouse){
     sf::Sprite sprite;
     sprite.setTexture(texture);
     sprite.setScale(0.01f, 0.01f);
@@ -20,13 +20,15 @@ sf::Sprite create_sprite(const sf::Texture &texture, const sf::Vector2f &mouse){
     return sprite;
 }
 
-std::vector<sf::Sprite> node_to_sprites(const std::vector<node> nodes, const sf::Texture &texture){
-    std::vector<sf::Sprite> sprites;
-    for (auto &n : nodes){
-        sf::Sprite sprite = create_sprite(texture, sf::Vector2f(n.x,n.y));
-        sprites.push_back(sprite);
-    }
-    return sprites;
+void create_node(const sf::Vector2f &mouse){
+    sf::Sprite sprite =  create_sprite(mouse);
+    sprites.push_back(sprite);
+    node vertice;
+    vertice.id = vertices.size();
+    vertice.x = mouse.x;
+    vertice.y = mouse.y;
+    vertice.root_id = -1;
+    vertices.push_back(vertice);
 }
 
 bool is_sprite(const sf::Vector2f &mouse, const std::vector<sf::Sprite> &sprites){
@@ -53,12 +55,14 @@ void assign_random_weights_to_edge(std::vector<edge> &aristas){
         a.peso = random() % MAX_WEIGHT;
 }
 
-void create_lineas_coloreadas(std::vector<sf::Vertex> &lineas_coloreadas, const std::vector<edge> &mst, const std::vector<sf::Sprite> &sprites){
+void create_lineas_coloreadas(std::vector<sf::Vertex> &lineas_coloreadas, const std::vector<edge> &mst, const std::vector<sf::Sprite> &sprites, const sf::Color &color ){
 
     for (auto &elem: mst){
         lineas_coloreadas.push_back(sf::Vertex(sprites[elem.nodes[0]].getPosition()));
         lineas_coloreadas.push_back(sf::Vertex(sprites[elem.nodes[1]].getPosition()));
     }
+    for (auto &l : lineas_coloreadas)
+        l.color = color;
 }
 
 std::vector<edge> call_mst(std::vector<edge> &aristas, std::vector<node> &vertices, std::string type){
@@ -110,8 +114,7 @@ void call_random_tree(std::vector<edge> &aristas, std::vector<node> &vertices, b
     assign_random_weights_to_edge(aristas);
 }
 
-void display_random_graph(std::vector<edge> &aristas, std::vector<node> &vertices, std::vector<sf::Sprite> &sprites, std::vector<sf::Vertex> &lineas,
-                            const sf::RenderWindow &window, const sf::Texture &texture){
+void display_random_graph(const sf::RenderWindow &window){
                                 
         sf::Vector2u win_size = window.getSize();
         for (auto &v : vertices){
@@ -120,7 +123,7 @@ void display_random_graph(std::vector<edge> &aristas, std::vector<node> &vertice
             v.x = x;
             v.y = y;
             sf::Vector2f pos(x,y);
-            sf::Sprite sprite = create_sprite(texture, pos);
+            sf::Sprite sprite = create_sprite(pos);
             sprites.push_back(sprite);
         }
 
