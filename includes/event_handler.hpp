@@ -15,10 +15,8 @@ void clear_vectors(){
 }
 
 void select_algorithms(const sf::Event &event, sf::RenderWindow &window){
-    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Num0) || sf::Keyboard::isKeyPressed(sf::Keyboard::Numpad0)){
-        if (lineas_coloreadas.size() > 0)
-            lineas_coloreadas.clear();
-    }
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Num0) || sf::Keyboard::isKeyPressed(sf::Keyboard::Numpad0))
+        lineas_coloreadas.clear();
 
     else if(sf::Keyboard::isKeyPressed(sf::Keyboard::Num1) || sf::Keyboard::isKeyPressed(sf::Keyboard::Numpad1)){
         //aqui va el prim
@@ -78,6 +76,7 @@ void interactivity (const sf::Event &event, sf::RenderWindow &window){
                     connected_nodes_index.push_back(node_index);
                     vertices[node_index[0]].arista_index.push_back(aristas.size());
                     vertices[node_index[1]].arista_index.push_back(aristas.size());
+                    
                     edge arista;
                     arista.nodes = node_index;
                     arista.peso = 0;
