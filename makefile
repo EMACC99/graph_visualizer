@@ -2,7 +2,7 @@ CC=g++
 CFLAGS=-c -Wall -std=c++17
 LDFLAGS=
 LIBFLAGS=-lsfml-graphics -lsfml-window -lsfml-system
-SOURCES=main.cpp includes/* algorithms/prim3.hpp algorithms/kruskal.hpp algorithms/grafos_aleatorios.hpp tests/tests.hpp 
+SOURCES=main.cpp includes/* algorithms/* tests/tests.hpp 
 OBJECTS=$(SOURCES:.cpp=.o)
 EXECUTABLE=sfml-app
 BINDIR=/usr/bin
