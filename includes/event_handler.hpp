@@ -147,7 +147,7 @@ void interactivity (const sf::Event &event, sf::RenderWindow &window){
             modified_lines_index.clear();
     }
     else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Delete))
-        window.clear();
+        clear_vectors(); //borrar todo lo que esta en pantalla
     
     else
         select_algorithms(event, window);
