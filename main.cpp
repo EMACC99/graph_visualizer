@@ -27,7 +27,7 @@ int main(int argc, char *argv[]){
     //cargar las texturas
     if (!texture.loadFromFile("Assets/blue-circle.png")){
         std::cout << "Error con textura" << std::endl;
-        return 0; // si falla cargar las texturas, termina la ejecucion
+        return 0; // si falla al cargar las texturas, termina la ejecucion
     }
     //llamos al visualizador
     visualizer();

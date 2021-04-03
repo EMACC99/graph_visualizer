@@ -122,22 +122,9 @@ void interactivity (const sf::Event &event, sf::RenderWindow &window){
                 std::cout << "el sprite que buscas es el " << global_sprite_index << std::endl;
 
                 mouse_button = "Middle";
-                if (lineas.size() > 0){
-                    for (int i = 0; i < lineas.size(); ++i){
-                        if (sprites[global_sprite_index].getGlobalBounds().contains(lineas[i].position))
-                            modified_lines_index.push_back(i);
-                    }
-                }
+                get_lines_to_modify();
 
-                sprites[global_sprite_index].setPosition(mouse);
-                vertices[global_sprite_index].x = mouse.x;
-                vertices[global_sprite_index].y = mouse.y;
-
-                if(modified_lines_index.size() > 0){
-                    for (int i = 0; i < modified_lines_index.size(); ++i)
-                        lineas[modified_lines_index[i]].position = sprites[global_sprite_index].getPosition();
-                }
-                sprite_selected = true;
+                modify_sprite_position(mouse);
             }
             else{
                 std::cout << "aqui no hay nada mi chavo" << std::endl; 
@@ -154,13 +141,7 @@ void interactivity (const sf::Event &event, sf::RenderWindow &window){
                 }
             }
             sf ::Vector2f new_position = window.mapPixelToCoords(sf::Mouse::getPosition(window));
-            sprites[global_sprite_index].setPosition(new_position);
-            vertices[global_sprite_index].x = new_position.x;
-            vertices[global_sprite_index].y = new_position.y;
-            if(modified_lines_index.size() > 0){
-                for (int i = 0; i < modified_lines_index.size(); ++i)
-                    lineas[modified_lines_index[i]].position = sprites[global_sprite_index].getPosition();
-            }
+            modify_sprite_position(new_position);
         }
     }
     else if (event.type == sf::Event::MouseButtonReleased && mouse_button == "Middle"){

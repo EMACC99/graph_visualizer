@@ -50,6 +50,27 @@ int get_sprite_index(const sf::Vector2f &mouse, const std::vector<sf::Sprite> &s
     return -1;
 }
 
+void get_lines_to_modify(){
+    if (lineas.size() > 0){
+        for (int i = 0; i < lineas.size(); ++i){
+            if (sprites[global_sprite_index].getGlobalBounds().contains(lineas[i].position))
+                modified_lines_index.push_back(i);
+        }
+    }
+}
+
+void modify_sprite_position(const sf::Vector2f &mouse){
+    sprites[global_sprite_index].setPosition(mouse);
+    vertices[global_sprite_index].x = mouse.x;
+    vertices[global_sprite_index].y = mouse.y;
+
+    if(modified_lines_index.size() > 0){
+        for (int i = 0; i < modified_lines_index.size(); ++i)
+            lineas[modified_lines_index[i]].position = sprites[global_sprite_index].getPosition();
+    }
+    sprite_selected = true;
+}
+
 void assign_random_weights_to_edge(std::vector<edge> &aristas){        
     for (auto &a : aristas)
         a.peso = random() % MAX_WEIGHT;
