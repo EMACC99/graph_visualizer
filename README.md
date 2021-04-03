@@ -34,7 +34,11 @@ g++ -c main.cpp includes/* algorithms/* tests/*
 
 g++ main.o -o sfml-app -lsfml-graphics -lsfml-window -lsfml-system
 ```
-
+**NOTA**: Al compilar el programa de esta manera, generara archivos `.gch` en los folders de `includes`, `algorithms` y `tests` por lo que si se quiere modificar y volver a compilar, hay que borrarlos. Esto se puede hacer de la siguiente manera:
+```
+rm includes/*.gch algorithms/*.gch tests/*.gch
+```
+Es por eso que se recomienda usar el `make`
 ### Ejecucion
 Para ejecutar el programa, hay que poner en una terminal el siguente comando:
 ```
