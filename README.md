@@ -30,9 +30,9 @@ Y automaticamente generara el binario llamado `sfml-app`
 ### A Mano:
 Si no se desea usar el makefile, se puede hacer de la siguente manera
 ```
-g++ -c main.cpp includes/functions.hpp includes/node.hpp includes/edge.hpp algorithms/prim3.hpp algorithms/kruskal.hpp algorithms/grafos_aleatorios.hpp tests/tests.hpp
+g++ -c main.cpp includes/* algorithms/* tests/*
 
-g++ main.o -o sfml-app.o -lsfml-graphics -lsfml-window -lsfml-system
+g++ main.o -o sfml-app -lsfml-graphics -lsfml-window -lsfml-system
 ```
 
 ### Ejecucion
@@ -50,6 +50,7 @@ El programa tiene por ahora, tres funcionalidades basicas:
 * Añadir un nodo  -> dando click
 * Unir dos nodos -> dando click a dos nodos
 * Mover los nodos -> presionando la rueda del mouse sobre el nodo y mover el mouse sin soltarlo
+* Borrar lo que esta en pantalla -> `Del`
 * Ejecutar Prim -> presionar tecla `1` o `Numpad1`
 * Ejecutar Kruskal -> presionar tecla `2` o `Numpad2`
 * Limpiear las lineas coloreadas -> presionar tecla `0` o `Numpad0`
@@ -58,7 +59,7 @@ El programa tiene por ahora, tres funcionalidades basicas:
 * Generar un Arbol Aleaotrio con n vertices -> tecla `5` o `Numpad5`
 * Generar una Grafica Conexa aleatoria con n vertices -> tecla `6` o `Numpad6`
 
-La entrada de los algoritmos a visualizar se tiene que dar en la consola
+La entrada de algunos de los algoritmos a visualizar, se tiene que dar en consola
 ## Programa
 
 El programa se ve asi:
