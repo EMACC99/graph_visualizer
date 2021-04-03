@@ -1,11 +1,7 @@
-#include <SFML/Graphics.hpp>
-#include <vector>
-#include <iostream>
-#include <algorithm>
-#include <string>
-#include <cstdlib>
+#pragma once
 
-#include "node.hpp"
+#include <SFML/Graphics.hpp>
+
 #include "functions.hpp"
 #include "edge.hpp"
 #include "globals.hpp"

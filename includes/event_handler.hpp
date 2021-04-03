@@ -1,11 +1,6 @@
 #pragma once
 
 #include <SFML/Graphics.hpp>
-#include <vector>
-#include <iostream>
-#include <algorithm>
-#include <string>
-#include <cstdlib>
 
 #include "node.hpp"
 #include "functions.hpp"
@@ -62,7 +57,7 @@ void select_algorithms(const sf::Event &event, sf::RenderWindow &window){
     else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Num6) || sf::Keyboard::isKeyPressed(sf::Keyboard::Numpad6)){
         window.clear();
         clear_vectors();
-        random_conex_graph(aristas, vertices);
+        call_random_conex_graph(aristas, vertices);
         display_random_graph(window);
     }
 }
@@ -151,6 +146,9 @@ void interactivity (const sf::Event &event, sf::RenderWindow &window){
         if(modified_lines_index.size() > 0)
             modified_lines_index.clear();
     }
+    else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Delete))
+        window.clear();
+    
     else
         select_algorithms(event, window);
 }

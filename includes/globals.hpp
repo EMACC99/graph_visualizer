@@ -1,8 +1,12 @@
 #pragma once
+
 #include <string>
 #include <SFML/Graphics.hpp>
+#include <vector>
+
 #include "edge.hpp"
 #include "node.hpp"
+
 //index para mover el sprite interactivamente
 int global_sprite_index;
 

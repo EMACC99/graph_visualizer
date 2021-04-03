@@ -1,14 +1,14 @@
 #pragma once
 
 #include <SFML/Graphics.hpp>
-#include<vector>
-#include <string>
+
 #include "node.hpp"
 #include "edge.hpp"
+#include "globals.hpp"
+
 #include "../algorithms/grafos_aleatorios.hpp"
 #include "../algorithms/kruskal.hpp"
 #include "../algorithms/prim3.hpp"
-#include "globals.hpp"
 
 #define MAX_WEIGHT 25; 
 
@@ -119,7 +119,7 @@ void call_erdos_rentyi(std::vector<edge> &aristas, std::vector<node> &vertices, 
     assign_random_weights_to_edge(aristas);
 }
 
-void random_conex_graph(std::vector<edge> &aristas, std::vector<node> &vertices){
+void call_random_conex_graph(std::vector<edge> &aristas, std::vector<node> &vertices){
     int n;
     std:: cout << "Cuantos nodos quieres?: ";
     std::cin >> n;
