@@ -40,24 +40,28 @@ void select_algorithms(const sf::Event &event, sf::RenderWindow &window){
         clear_vectors();
         call_erdos_rentyi();
         display_random_graph(window);
+        update_text_position();
     }
     else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Num4) || sf::Keyboard::isKeyPressed(sf::Keyboard::Numpad4)){
         window.clear();
         clear_vectors();
         call_erdos_rentyi(true);
         display_random_graph(window);
+        update_text_position();
     }
     else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Num5) || sf::Keyboard::isKeyPressed(sf::Keyboard::Numpad5)){
         window.clear();
         clear_vectors();
         call_random_tree();
         display_random_graph(window);
+        update_text_position();
     }
     else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Num6) || sf::Keyboard::isKeyPressed(sf::Keyboard::Numpad6)){
         window.clear();
         clear_vectors();
         call_random_conex_graph();
         display_random_graph(window);
+        update_text_position();
     }
 }
 

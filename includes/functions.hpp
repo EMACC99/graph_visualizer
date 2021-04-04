@@ -145,7 +145,6 @@ void call_erdos_rentyi(bool m_edges = false){
     }
     assign_random_weights_to_edge();
     create_text_to_display();
-    update_text_position();
 }
 
 void call_random_conex_graph(){
@@ -155,7 +154,6 @@ void call_random_conex_graph(){
     grafo_conexo_aleatorio(n, aristas, vertices);
     assign_random_weights_to_edge();
     create_text_to_display();
-    update_text_position();
 }
 
 void call_random_tree(bool binary_tree = false){
@@ -165,7 +163,6 @@ void call_random_tree(bool binary_tree = false){
     arbol_aleatorio(n, aristas, vertices);
     assign_random_weights_to_edge();
     create_text_to_display();
-    update_text_position();
 }
 
 void display_random_graph(const sf::RenderWindow &window){
