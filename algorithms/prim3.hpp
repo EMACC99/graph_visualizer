@@ -8,11 +8,12 @@
 
 #include "../includes/node.hpp"
 #include "../includes/edge.hpp"
+#include "../includes/globals.hpp"
 
-std::vector<edge> prim(const std::vector<node> &vertices, const std::vector<edge> &aristas){
+std::vector<edge> prim(){
     std::vector<bool> vertices_explorados;
     std::vector<edge> arbol;
-    std::priority_queue<edge, std::vector<edge>, compare> aristas_por_explorar;
+    std::priority_queue<edge, std::vector<edge>, compare_pq> aristas_por_explorar;
 
     int vertice_aleatorio = rand() % vertices.size();
     for (int i = 0; i < vertices.size(); ++i)

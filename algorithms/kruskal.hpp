@@ -7,6 +7,7 @@
 
 #include "../includes/node.hpp"
 #include "../includes/edge.hpp"
+#include "../includes/globals.hpp"
 
 // int raiz(const int &u, const std::vector<int> &padres){
 //     if (padres[u] != -1)
@@ -29,7 +30,7 @@ void juntar(const int &u, const int &v, std::vector<int> &padres){
     padres[raiz(u, padres)] = raiz(v, padres);
 }
 
-std::vector<edge> kusrkal(std::vector<node> &vertices, const std::vector<edge> &aristas){
+std::vector<edge> kusrkal(){
     std::vector<edge> arbol;
     std::vector<edge> kruskal_aristas = aristas;
     std::sort(kruskal_aristas.begin(), kruskal_aristas.end(), compare()); //las ordenamos por peso
