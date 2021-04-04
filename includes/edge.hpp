@@ -9,8 +9,14 @@ struct edge{
         bool colored = false;
 
 };
-struct compare{  //para ordenarlos por peso en la queue
+struct compare{  //para ordenarlos en un vector
     bool operator()(const edge & a, const edge & b){
+        return a.peso < b.peso;
+    }
+};
+
+struct compare_pq{ //para ordenarlos por peso en la queue y que saque el menor primero
+    bool operator()(const edge &a, const edge &b){
         return a.peso > b.peso;
     }
 };

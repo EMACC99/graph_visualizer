@@ -31,6 +31,9 @@ void visualizer(){
             for (auto &s: sprites)
                 window.draw(s);
 
+            for(auto &t : textos_peso)
+                window.draw(t);
+            
             window.display();
         }
     }

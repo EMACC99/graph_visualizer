@@ -71,12 +71,12 @@ void modify_sprite_position(const sf::Vector2f &mouse){
     sprite_selected = true;
 }
 
-void assign_random_weights_to_edge(std::vector<edge> &aristas){        
+void assign_random_weights_to_edge(){        
     for (auto &a : aristas)
         a.peso = random() % MAX_WEIGHT;
 }
 
-void create_lineas_coloreadas(std::vector<sf::Vertex> &lineas_coloreadas, const std::vector<edge> &mst, const std::vector<sf::Sprite> &sprites, const sf::Color &color ){
+void create_lineas_coloreadas(const std::vector<edge> &mst, const sf::Color &color ){
 
     for (auto &elem: mst){
         lineas_coloreadas.push_back(sf::Vertex(sprites[elem.nodes[0]].getPosition()));
@@ -86,20 +86,47 @@ void create_lineas_coloreadas(std::vector<sf::Vertex> &lineas_coloreadas, const 
         l.color = color;
 }
 
-std::vector<edge> call_mst(std::vector<edge> &aristas, std::vector<node> &vertices, std::string type){
+void create_text_to_display(){
+    for (auto &arista : aristas){
+        sf::Text texto;
+        texto.setFont(font);
+        texto.setString(std::to_string(arista.peso));
+        texto.setCharacterSize(16);
+        texto.setFillColor(sf::Color::Blue);
+        textos_peso.push_back(texto);
+    }
+}
+
+void update_text_position(){
+    float new_x_1, new_x_2, new_y_1,new_y_2, new_text_x, new_text_y;
+    for (int i = 0; i < aristas.size();  ++i){ //en teoria, los arreglos del texto y de las aristas son de la misma longitud
+        new_x_1 = vertices[aristas[i].nodes[0]].x;
+        new_y_1 = vertices[aristas[i].nodes[0]].y;
+
+        new_x_2 = vertices[aristas[i].nodes[1]].x;
+        new_y_2 = vertices[aristas[i].nodes[1]].y;
+
+        new_text_x = (new_x_1 + new_x_2)/2;
+        new_text_y = (new_y_1 + new_y_2)/2;
+        
+        textos_peso[i].setPosition(sf::Vector2f {new_text_x, new_text_y});
+    }
+}
+
+std::vector<edge> call_mst(std::string type){
     if (aristas[0].peso == 0)
-        assign_random_weights_to_edge(aristas);
+        assign_random_weights_to_edge();
     std::vector<edge> mst;
     if (vertices.size() > 0 && aristas.size() > 0){
         if (type == "Kruskal")
-            mst = kusrkal(vertices,aristas);
+            mst = kusrkal();
         else if(type == "Prim")
-            mst = prim(vertices,aristas);
+            mst = prim();
     }
     return mst;
 }
 
-void call_erdos_rentyi(std::vector<edge> &aristas, std::vector<node> &vertices, bool m_edges = false){
+void call_erdos_rentyi(bool m_edges = false){
     int n;
     std::cout << "Cuantos nodos quieres?: "; 
     std::cin >> n;
@@ -116,23 +143,29 @@ void call_erdos_rentyi(std::vector<edge> &aristas, std::vector<node> &vertices, 
         std::cin >> p;
         erdos_renyi(n, p, aristas, vertices);
     }
-    assign_random_weights_to_edge(aristas);
+    assign_random_weights_to_edge();
+    create_text_to_display();
+    update_text_position();
 }
 
-void call_random_conex_graph(std::vector<edge> &aristas, std::vector<node> &vertices){
+void call_random_conex_graph(){
     int n;
     std:: cout << "Cuantos nodos quieres?: ";
     std::cin >> n;
     grafo_conexo_aleatorio(n, aristas, vertices);
-    assign_random_weights_to_edge(aristas);
+    assign_random_weights_to_edge();
+    create_text_to_display();
+    update_text_position();
 }
 
-void call_random_tree(std::vector<edge> &aristas, std::vector<node> &vertices, bool binary_tree = false){
+void call_random_tree(bool binary_tree = false){
     int n;
     std::cout << "Cuantos nodos quieres? ";
     std::cin >> n;
     arbol_aleatorio(n, aristas, vertices);
-    assign_random_weights_to_edge(aristas);
+    assign_random_weights_to_edge();
+    create_text_to_display();
+    update_text_position();
 }
 
 void display_random_graph(const sf::RenderWindow &window){

@@ -27,6 +27,11 @@ int main(int argc, char *argv[]){
         std::cout << "Error con textura" << std::endl;
         return 0; // si falla al cargar las texturas, termina la ejecucion
     }
+
+    if (!font.loadFromFile("Assets/Caskaydia Cove Nerd Font Complete.ttf")){
+        std::cout << "Error al cargar la fuente" << std::endl;
+        return 0;
+    }
     //llamos al visualizador
     visualizer();
 

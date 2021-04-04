@@ -17,6 +17,10 @@ std::string mouse_button = "";
 
 //cosas para dibujar
 sf::Texture texture;
+sf::Font font;
+
+std::vector<sf::Text> textos_peso;
+
 std::vector<sf::Vertex> lineas_coloreadas;
 std::vector<sf::Sprite> sprites;
 
