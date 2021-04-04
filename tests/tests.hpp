@@ -9,12 +9,10 @@
 
 #include "../includes/edge.hpp"
 #include "../includes/node.hpp"
-
+#include "../includes/globals.hpp"
 
 
 void test(){
-    std::vector<edge> aristas;
-    std::vector<node> vertices;
     /* 
     primero, vamos a crear el grafo, la representacion del grafo esta dada por (nodo1, peso, nodo2)
     (0,1,2);
@@ -73,9 +71,8 @@ void test(){
     vertices[4].arista_index.push_back(aristas.size());
     aristas.push_back(arista6);
 
-    std::vector<edge> prim_mst = prim(vertices, aristas);
-    std::vector<edge> kruskal_mst = kusrkal(vertices,aristas);
-
+    std::vector<edge> prim_mst = prim();
+    std::vector<edge> kruskal_mst = kusrkal();
 
     std::cout << "Grafica formada por prim" << std::endl;
     for (auto &p : prim_mst){
