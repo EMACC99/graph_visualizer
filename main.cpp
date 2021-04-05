@@ -15,7 +15,8 @@ int main(int argc, char *argv[]){
         std::string arg = argv[1];
         if (arg == "test"){
             test();
-            return 0; //corre los test y finaliza el programa
+            // return 0; //corre los test y finaliza el programa
+            is_test = true;
         }   
     }
     else if (argc > 2){ //si me pasas muchos argumentos o uno que no es, continua con el programa

@@ -15,6 +15,8 @@ bool sprite_selected = false;
 bool mouse_button_pressed = false;
 std::string mouse_button = "";
 
+bool is_test = false;
+
 //cosas para dibujar
 sf::Texture texture;
 sf::Font font;

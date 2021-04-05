@@ -20,7 +20,12 @@ private:
                     interactivity(event, window);
 
                 window.clear();
-
+                if (is_test){
+                    display_random_graph(window);
+                    create_text_to_display();
+                    update_text_position();
+                    is_test = false;
+                }
                 if (lineas.size() > 0)
                     window.draw(&lineas[0],lineas.size(), sf::Lines);
 
