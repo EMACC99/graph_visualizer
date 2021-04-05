@@ -1,6 +1,5 @@
 #pragma once
 
-
 #include "functions.hpp"
 #include "globals.hpp"
 #include "event_handler_class.hpp"
