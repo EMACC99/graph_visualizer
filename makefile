@@ -1,5 +1,5 @@
 CC=g++
-CFLAGS=-c -Wall -std=c++17
+CFLAGS=-c -Wall -std=c++17 -Ofast
 LDFLAGS=
 LIBFLAGS=-lsfml-graphics -lsfml-window -lsfml-system
 SOURCES=main.cpp includes/* algorithms/* tests/tests.hpp 
