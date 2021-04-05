@@ -1,9 +1,6 @@
 #pragma once
 
 #include <vector>
-#include <algorithm>
-#include <iostream>
-#include <stdlib.h>
 #include <queue>
 
 #include "../includes/node.hpp"

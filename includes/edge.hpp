@@ -1,7 +1,5 @@
 #pragma once
 #include <vector>
-#include <algorithm>
-#include "node.hpp"
 
 struct edge{
         float peso;
@@ -20,4 +18,3 @@ struct compare_pq{ //para ordenarlos por peso en la queue y que saque el menor p
         return a.peso > b.peso;
     }
 };
-

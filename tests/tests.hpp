@@ -1,7 +1,5 @@
 #pragma once
 
-#include <vector>
-#include <algorithm>
 #include <string>
 
 #include "../algorithms/prim3.hpp"

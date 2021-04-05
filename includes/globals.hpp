@@ -1,8 +1,9 @@
 #pragma once
 
-#include <string>
 #include <SFML/Graphics.hpp>
+#include <string>
 #include <vector>
+#include <iostream>
 
 #include "edge.hpp"
 #include "node.hpp"

@@ -1,6 +1,5 @@
 #pragma once
 #include <vector>
-#include <algorithm>
 
 struct node{
         int root_id;

@@ -1,18 +1,14 @@
 #pragma once
 
-#include <SFML/Graphics.hpp>
-
 #include "node.hpp"
-#include "functions.hpp"
 #include "edge.hpp"
+#include "functions.hpp"
 #include "globals.hpp"
-
 
 class event_handler{
 private:
     void clear_vectors();
     void select_algorithms(const sf::Event &event, sf::RenderWindow &window);
-    /* data */
 public:
     void interactivity(const sf::Event &event, sf::RenderWindow &window);
     event_handler();
@@ -35,7 +31,6 @@ void event_handler::clear_vectors(){
     textos_peso.clear();
     lineas_coloreadas.clear();
 }
-
 
 void event_handler::select_algorithms(const sf::Event &event, sf::RenderWindow &window){
    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Num0) || sf::Keyboard::isKeyPressed(sf::Keyboard::Numpad0))

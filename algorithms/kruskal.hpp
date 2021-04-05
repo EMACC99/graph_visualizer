@@ -2,8 +2,6 @@
 
 #include <vector>
 #include <algorithm>
-#include <iostream>
-#include <stdlib.h>
 
 #include "../includes/node.hpp"
 #include "../includes/edge.hpp"

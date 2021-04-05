@@ -1,15 +1,12 @@
 #pragma once
 
-#include <SFML/Graphics.hpp>
 
 #include "functions.hpp"
-#include "edge.hpp"
 #include "globals.hpp"
 #include "event_handler_class.hpp"
 
 class visualizer : event_handler{
 private:
-    /* data */
     void draw(sf::RenderWindow &window){
         while (window.isOpen()){
             sf::Event event;
@@ -53,5 +50,4 @@ visualizer::visualizer(/* args */){
 }
 
 visualizer::~visualizer(){
-    
 }
