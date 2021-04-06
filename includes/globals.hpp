@@ -13,7 +13,6 @@ int global_sprite_index;
 
 //banderas para la interactividad
 bool sprite_selected = false;
-bool mouse_button_pressed = false;
 std::string mouse_button = "";
 
 bool is_test = false;
