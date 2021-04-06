@@ -78,6 +78,12 @@ void event_handler::select_algorithms(const sf::Event &event, sf::RenderWindow &
         display_random_graph(window);
         update_text_position();
     }
+    else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Num7) || sf::Keyboard::isKeyPressed(sf::Keyboard::Numpad7)){
+        lineas_coloreadas.clear();
+        std::pair<std::vector<int>, unsigned int> colores = componentes_conexas();
+        color_conex_components(colores);
+        std::cout << "El numero de componentes conexas es: " << colores.second << "!!" << std::endl;
+    }
 }
 
 void event_handler::interactivity (const sf::Event &event, sf::RenderWindow &window){
@@ -127,7 +133,6 @@ void event_handler::interactivity (const sf::Event &event, sf::RenderWindow &win
     else if (event.type == sf::Event::MouseButtonPressed && event.mouseButton.button == sf::Mouse::Middle){
                 
         sf::Vector2f mouse = window.mapPixelToCoords(sf::Mouse::getPosition(window));
-        mouse_button_pressed = true;
 
         if (sprites.size() > 0){
             global_sprite_index = get_sprite_index(mouse, sprites);
@@ -138,11 +143,13 @@ void event_handler::interactivity (const sf::Event &event, sf::RenderWindow &win
                 get_lines_to_modify();
 
                 modify_sprite_position(mouse);
-                update_text_position();
+
+                if (textos_peso.size() > 0)
+                    update_text_position();
             }
             else{
                 std::cout << "aqui no hay nada mi chavo" << std::endl; 
-                mouse_button_pressed = false;
+                
             }
         }
     }
@@ -156,7 +163,9 @@ void event_handler::interactivity (const sf::Event &event, sf::RenderWindow &win
             }
             sf ::Vector2f new_position = window.mapPixelToCoords(sf::Mouse::getPosition(window));
             modify_sprite_position(new_position);
-            update_text_position();
+
+            if (textos_peso.size() > 0)
+                update_text_position();
         }
     }
     else if (event.type == sf::Event::MouseButtonReleased && mouse_button == "Middle"){

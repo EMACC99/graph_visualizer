@@ -7,9 +7,10 @@
 #include "../algorithms/grafos_aleatorios.hpp"
 #include "../algorithms/kruskal.hpp"
 #include "../algorithms/prim3.hpp"
+#include "../algorithms/componentes_conexas.hpp"
 
 #define MAX_WEIGHT 25; 
-
+//fuciones de ayuda para dibujar y ser interactivos
 sf::Sprite create_sprite(const sf::Vector2f &mouse){
     sf::Sprite sprite;
     sprite.setTexture(texture);
@@ -73,7 +74,7 @@ void assign_random_weights_to_edge(){
     for (auto &a : aristas)
         a.peso = random() % MAX_WEIGHT;
 }
-
+//colorear aristas del mst
 void create_lineas_coloreadas(const std::vector<edge> &mst, const sf::Color &color ){
 
     for (auto &elem: mst){
@@ -84,6 +85,33 @@ void create_lineas_coloreadas(const std::vector<edge> &mst, const sf::Color &col
         l.color = color;
 }
 
+//colorear aritas de compoenetes conexas
+void color_conex_components(const std::pair<std::vector<int>, unsigned int> &colores){
+    //definimos los colores para dibujar las componentes conexas
+    std::vector<sf::Color> drawing_colors;
+    uint8_t r,g,b; //uint8_t porque pues un color es de 8 bits por canal
+    for (int i = 0; i < colores.second; ++i){ //agarramos colores al azar
+        r = static_cast<uint8_t> (rand() % 255);
+        g = static_cast<uint8_t> (rand() % 255);
+        b = static_cast<uint8_t> (rand() % 255);
+        drawing_colors.push_back(sf::Color (r,g,b));
+    }
+
+    int u,v;
+    for (auto &arista: aristas){
+        sf::Color color = drawing_colors[colores.first[arista.nodes[0]]];
+        sf::Vertex linea_coloreada_1, linea_coloreada_2;
+        linea_coloreada_1.position = sprites[arista.nodes[0]].getPosition();
+        linea_coloreada_1.color = color;
+
+        linea_coloreada_2.position = sprites[arista.nodes[1]].getPosition();
+        linea_coloreada_2.color = color;
+
+        lineas_coloreadas.push_back(linea_coloreada_1);
+        lineas_coloreadas.push_back(linea_coloreada_2);
+    }
+}
+//texto
 void create_text_to_display(){
     for (auto &arista : aristas){
         sf::Text texto;
@@ -110,7 +138,7 @@ void update_text_position(){
         textos_peso[i].setPosition(sf::Vector2f {new_text_x, new_text_y});
     }
 }
-
+//llamar algoritmos
 std::vector<edge> call_mst(std::string type){
     if (aristas[0].peso == 0)
         assign_random_weights_to_edge();
