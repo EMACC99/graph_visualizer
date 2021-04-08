@@ -76,6 +76,8 @@ void arbol_aleatorio(int n, std::vector<edge> &aristas, std::vector<node> & vert
     while (aristas.size() < n -1){
         u = rand() % n;
         v = rand() % n;
+        while (v == u)
+            v = rand() % n;
         if (raiz(u,padres) != raiz(v, padres)){ //las funciones de raiz y de juntar estan definidas en kruskal.hpp
             join_nodes(v,u,aristas, vertices);
             juntar(u,v,padres); 
@@ -97,6 +99,8 @@ void grafo_conexo_aleatorio(int n,std::vector<edge> & aristas, std::vector<node>
     for (int i = n;  i <  num_aristas; ++ i){ 
         u = rand() % n;
         v = rand() % n;
+        while (v == u)
+            v = rand() %n;
         join_nodes(v,u,aristas, vertices);
     }
 }
