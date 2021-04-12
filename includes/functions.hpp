@@ -26,7 +26,7 @@ void create_node(const sf::Vector2f &mouse){
     vertice.id = vertices.size();
     vertice.x = mouse.x;
     vertice.y = mouse.y;
-    vertice.root_id = -1;
+    vertice.padre = -1;
     vertices.push_back(vertice);
 }
 
@@ -191,6 +191,14 @@ void call_random_tree(bool binary_tree = false){
     create_text_to_display();
 }
 
+std::vector<int> call_get_parents(){
+    int root_index;
+    std::cout << "quien es la raiz? ";
+    std::cin  >> root_index;
+    return get_parents(vertices[root_index]);
+}
+
+//dar parametros para el visualizador para dibujar cosas en lugares random
 void display_random_graph(const sf::RenderWindow &window){
                                 
         sf::Vector2u win_size = window.getSize();

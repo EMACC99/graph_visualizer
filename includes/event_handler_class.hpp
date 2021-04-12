@@ -83,6 +83,14 @@ void event_handler::select_algorithms(const sf::Event &event, sf::RenderWindow &
         std::pair<std::vector<int>, unsigned int> colores = componentes_conexas();
         color_conex_components(colores);
         std::cout << "El numero de componentes conexas es: " << colores.second << "!!" << std::endl;
+
+        std::vector<int> parents = call_get_parents();
+        std::vector<std::pair<int, int>> parents_with_index;
+        for (int i = 0; i < parents.size(); ++i)
+            parents_with_index.push_back({i, parents[i]});
+
+        for (auto &elem : parents_with_index)
+            std::cout << "nodo: " << elem.first << " Padre: " << elem.second << std::endl;
     }
 }
 

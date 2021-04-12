@@ -15,6 +15,36 @@ std::vector<int> get_vecinos(const node &v){
     return vecinos;
 }
 
+bool is_tree(){
+    // se me ocurren dos cosas, una es detectar ciclos, y la otra es usar DFS como si fuera un arbol y si turena pues es que no es arbol
+    return true;
+}
+
+void assign_parents(node &root, std::vector<int> &parents){
+    //Encontrar padres dado la raiz del arbol
+    std::vector<int> hijos = get_vecinos(root);
+    for (auto &hijo :hijos){
+        if (parents[root.id] == -1){
+            parents[vertices[hijo].id] = root.id;
+            assign_parents(vertices[hijo], parents);
+        }
+    }
+}
+
+std::vector<int>get_parents(node & root){
+    std::vector<int> parents(vertices.size(), -1);
+    parents[root.id] = -1;
+    std::vector<int> hijos = get_vecinos(root);
+    for (auto &hijo : hijos){
+        if (parents[vertices[hijo].id] == -1){
+            parents[vertices[hijo].id] = root.id;
+            assign_parents(vertices[hijo], parents);
+        }
+    }
+    std::max_element(parents.begin(), parents.end());
+    return parents;
+}
+
 void pintar_componente(const node &v, std::vector<int> &colores, const int &color){
     colores[v.id] = color;
     std::vector<int> vecinos = get_vecinos(v);

@@ -20,7 +20,7 @@ void test(){
     for (int i = 0; i<5; ++i){
         node vertice;
         vertice.id = i;
-        vertice.root_id = -1;
+        vertice.padre = -1;
         vertices.push_back(vertice);
     }
 

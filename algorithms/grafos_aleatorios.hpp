@@ -10,11 +10,10 @@ void create_nodes(std::vector<node> &vertices, int n){
     for (int i = 0; i < n; ++i){
         node nodo;
         nodo.id = i;
-        nodo.root_id = -1;
+        nodo.padre = -1;
         vertices.push_back(nodo);
     }
 }
-
 
 void join_nodes(const int &v, const int &u, std::vector<edge>& aristas, std::vector<node> &vertices){
     edge arista;

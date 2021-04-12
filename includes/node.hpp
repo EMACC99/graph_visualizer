@@ -2,7 +2,7 @@
 #include <vector>
 
 struct node{
-        int root_id;
+        int padre;
         int id;
         float x,y;
         std::vector <int> arista_index; // de la lista de aristas, pon los que le corresponden, moejor dicho, todas la aristas que salen del vertice
