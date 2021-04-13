@@ -12,7 +12,13 @@
 //         return raiz(padres[u], padres);
 //     return u;
 // }
-
+/**
+ * @brief check the root of two nodes and meke them the sema as they are in the same conex component (disjoint sets)
+ * 
+ * @param u 
+ * @param padres 
+ * @return int 
+ */
 int raiz(const int &u, std::vector<int> & padres){
     int p = padres[u];
     if (p == -1)
@@ -23,11 +29,21 @@ int raiz(const int &u, std::vector<int> & padres){
         return r;
     }
 }
-
+/**
+ * @brief join the roots of two given nodes
+ * 
+ * @param u 
+ * @param v 
+ * @param padres 
+ */
 void juntar(const int &u, const int &v, std::vector<int> &padres){
     padres[raiz(u, padres)] = raiz(v, padres);
 }
-
+/**
+ * @brief executes de mst kruskal
+ * 
+ * @return std::vector<edge> 
+ */
 std::vector<edge> kusrkal(){
     std::vector<edge> arbol;
     std::vector<edge> kruskal_aristas = aristas;

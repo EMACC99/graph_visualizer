@@ -35,7 +35,7 @@ void event_handler::clear_vectors(){
     lineas_coloreadas.clear();
 }
 /**
- * @brief 
+ * @brief handler for selecting agorithms
  * 
  * @param event 
  * @param window 
@@ -110,7 +110,7 @@ void event_handler::select_algorithms(const sf::Event &event, sf::RenderWindow &
     }
 }
 /**
- * @brief 
+ * @brief handles the interactivity for the visualizer
  * 
  * @param event 
  * @param window 
@@ -176,10 +176,8 @@ void event_handler::interactivity (const sf::Event &event, sf::RenderWindow &win
                 if (textos_peso.size() > 0)
                     update_text_position();
             }
-            else{
+            else
                 std::cout << "aqui no hay nada mi chavo" << std::endl; 
-                
-            }
         }
     }
     else if (event.type == sf::Event::MouseMoved && mouse_button == "Middle"){

@@ -5,7 +5,12 @@
 #include "../includes/edge.hpp"
 #include "../includes/node.hpp"
 #include "kruskal.hpp"
-
+/**
+ * @brief Create a nodes object
+ * 
+ * @param vertices 
+ * @param n 
+ */
 void create_nodes(std::vector<node> &vertices, int n){
     for (int i = 0; i < n; ++i){
         node nodo;
@@ -14,7 +19,14 @@ void create_nodes(std::vector<node> &vertices, int n){
         vertices.push_back(nodo);
     }
 }
-
+/**
+ * @brief 
+ * 
+ * @param v 
+ * @param u 
+ * @param aristas 
+ * @param vertices 
+ */
 void join_nodes(const int &v, const int &u, std::vector<edge>& aristas, std::vector<node> &vertices){
     edge arista;
     arista.nodes = {u,v};
@@ -22,7 +34,14 @@ void join_nodes(const int &v, const int &u, std::vector<edge>& aristas, std::vec
     vertices[v].arista_index.push_back(aristas.size());
     aristas.push_back(arista);
 }
-
+/**
+ * @brief 
+ * 
+ * @param n 
+ * @param p 
+ * @param aristas 
+ * @param vertices 
+ */
 void erdos_renyi(const int n, const float p, std::vector<edge>&aristas, std::vector<node>& vertices){
     create_nodes(vertices, n);
 
@@ -39,7 +58,14 @@ void erdos_renyi(const int n, const float p, std::vector<edge>&aristas, std::vec
         }
     }
 }
-
+/**
+ * @brief 
+ * 
+ * @param n 
+ * @param m 
+ * @param aristas 
+ * @param vertices 
+ */
 void erdos_renyi_m(const int n, const int m, std::vector<edge>& aristas, std::vector<node> & vertices){
 
     create_nodes(vertices, n);
@@ -61,9 +87,15 @@ void erdos_renyi_m(const int n, const int m, std::vector<edge>& aristas, std::ve
     aristas.resize(m); //toma las m aristas
 }
 
-// agarra dos aristas al azar, revisa si no se forma un ciclo y unelas, eso de revisarlo es como los disjoints sets de kurskal
-
+/**
+ * @brief generates a random tree
+ * 
+ * @param n 
+ * @param aristas 
+ * @param vertices 
+ */
 void arbol_aleatorio(int n, std::vector<edge> &aristas, std::vector<node> & vertices){
+    // agarra dos aristas al azar, revisa si no se forma un ciclo y unelas, eso de revisarlo es como los disjoints sets de kurskal
     create_nodes(vertices, n);
 
     std::vector<int> padres (vertices.size());
@@ -87,7 +119,13 @@ void arbol_aleatorio(int n, std::vector<edge> &aristas, std::vector<node> & vert
 // Para mi grafo conexo aleatorio, se me ocurre que podemos puedes tomar dos nodos al azar y unirlos con una arista, despues vuelves a tomar otros dos nodos, revisas
 // si no tienen dos aristas, si no los unes, si si, escoge otro al azar. necesita tener n-1 aristas para funcionar, despues de eso, las aristas ya pueden estar en el lugar que sea
 
-
+/**
+ * @brief generates a random conex graph
+ * 
+ * @param n 
+ * @param aristas 
+ * @param vertices 
+ */
 void grafo_conexo_aleatorio(int n,std::vector<edge> & aristas, std::vector<node> & vertices){ 
     
     // create_nodes(vertices, n);
