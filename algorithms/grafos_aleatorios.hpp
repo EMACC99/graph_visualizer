@@ -6,7 +6,7 @@
 #include "../includes/node.hpp"
 #include "kruskal.hpp"
 /**
- * @brief Create a nodes object
+ * @brief Create a nodes
  * 
  * @param vertices 
  * @param n 
@@ -20,7 +20,7 @@ void create_nodes(std::vector<node> &vertices, int n){
     }
 }
 /**
- * @brief 
+ * @brief join two nodes by and edge and add the edge to the list of edges
  * 
  * @param v 
  * @param u 
@@ -35,7 +35,7 @@ void join_nodes(const int &v, const int &u, std::vector<edge>& aristas, std::vec
     aristas.push_back(arista);
 }
 /**
- * @brief 
+ * @brief implementation of erdos renyi algorithm 
  * 
  * @param n 
  * @param p 
@@ -59,7 +59,7 @@ void erdos_renyi(const int n, const float p, std::vector<edge>&aristas, std::vec
     }
 }
 /**
- * @brief 
+ * @brief implementation of erdos renyi algorithm with m edges
  * 
  * @param n 
  * @param m 
