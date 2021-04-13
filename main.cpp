@@ -30,7 +30,7 @@ int main(int argc, char *argv[]){
         std::cout << "Error al cargar la fuente" << std::endl;
         return 0;
     }
-    //llamos al visualizador
+    //llamamos al visualizador
     visualizer();
 
     return 0;

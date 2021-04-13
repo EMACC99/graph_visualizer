@@ -4,6 +4,13 @@
 #include "../includes/node.hpp"
 #include "../includes/globals.hpp"
 
+bool cycles = false;
+/**
+ * @brief Get the list of neighbours
+ * 
+ * @param v 
+ * @return std::vector<int> 
+ */
 std::vector<int> get_vecinos(const node &v){
     std::vector<int> vecinos;
     for (auto &a_index : v.arista_index){
@@ -15,25 +22,54 @@ std::vector<int> get_vecinos(const node &v){
     return vecinos;
 }
 
-bool is_tree(){
-    // se me ocurren dos cosas, una es detectar ciclos, y la otra es usar DFS como si fuera un arbol y si turena pues es que no es arbol
-    return true;
+/**
+ * @brief check if there is a cicle in the nodes
+ * 
+ * @param root 
+ * @param parents 
+ * @param hijos 
+ * @return true 
+ * @return false 
+ */
+bool has_cicles(const node &root, const std::vector<int> &parents, const std::vector<int> &hijos){
+    //si mi vecino ya tiene padre, y ese vecino no es mi papa -> hay ciclo
+    for (auto &hijo: hijos){
+        if (parents[hijo] != -1 && hijo != parents[root.id])
+            return true;
+    }
+    return false;
 }
-
+/**
+ * @brief 
+ * 
+ * @param root 
+ * @param parents 
+ */
 void assign_parents(node &root, std::vector<int> &parents){
     //Encontrar padres dado la raiz del arbol
     std::vector<int> hijos = get_vecinos(root);
+    if (has_cicles(root, parents, hijos)){
+        cycles = true;
+        return;
+    }
+
     for (auto &hijo :hijos){
-        if (parents[root.id] == -1){
+        if (parents[vertices[hijo].id] == -1){
             parents[vertices[hijo].id] = root.id;
             assign_parents(vertices[hijo], parents);
+            if (cycles)
+                return; 
         }
     }
 }
-
+/**
+ * @brief Construct a new std::vector<int>get parents object
+ * 
+ * @param root 
+ */
 std::vector<int>get_parents(node & root){
     std::vector<int> parents(vertices.size(), -1);
-    parents[root.id] = -1;
+    parents[root.id] = -2;
     std::vector<int> hijos = get_vecinos(root);
     for (auto &hijo : hijos){
         if (parents[vertices[hijo].id] == -1){
@@ -41,10 +77,19 @@ std::vector<int>get_parents(node & root){
             assign_parents(vertices[hijo], parents);
         }
     }
-    std::max_element(parents.begin(), parents.end());
+    // std::max_element(parents.begin(), parents.end());
+    parents[root.id] = -1;
+    if (cycles)
+        parents.clear();
     return parents;
 }
-
+/**
+ * @brief 
+ * 
+ * @param v
+ * @param colores
+ * @param color
+ */
 void pintar_componente(const node &v, std::vector<int> &colores, const int &color){
     colores[v.id] = color;
     std::vector<int> vecinos = get_vecinos(v);
@@ -53,7 +98,11 @@ void pintar_componente(const node &v, std::vector<int> &colores, const int &colo
             pintar_componente(vertices[u],colores,color);
     }
 }
-
+/**
+ * @brief finds the number of conex compoents and paint them
+ * 
+ * @return std::pair<std::vector<int>,unsigned int> 
+ */
 std::pair<std::vector<int>,unsigned int> componentes_conexas(){
     std::vector<int> colores(vertices.size(), -1);
     unsigned int color = 0;

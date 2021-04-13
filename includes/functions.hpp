@@ -11,6 +11,12 @@
 
 #define MAX_WEIGHT 25; 
 //fuciones de ayuda para dibujar y ser interactivos
+/**
+ * @brief Create a sprite object
+ * 
+ * @param mouse 
+ * @return sf::Sprite 
+ */
 sf::Sprite create_sprite(const sf::Vector2f &mouse){
     sf::Sprite sprite;
     sprite.setTexture(texture);
@@ -18,7 +24,11 @@ sf::Sprite create_sprite(const sf::Vector2f &mouse){
     sprite.setPosition(mouse);
     return sprite;
 }
-
+/**
+ * @brief Create a node object
+ * 
+ * @param mouse 
+ */
 void create_node(const sf::Vector2f &mouse){
     sf::Sprite sprite =  create_sprite(mouse);
     sprites.push_back(sprite);
@@ -29,7 +39,14 @@ void create_node(const sf::Vector2f &mouse){
     vertice.padre = -1;
     vertices.push_back(vertice);
 }
-
+/**
+ * @brief Checks if it is a sprite object
+ * 
+ * @param mouse 
+ * @param sprites 
+ * @return true 
+ * @return false 
+ */
 bool is_sprite(const sf::Vector2f &mouse, const std::vector<sf::Sprite> &sprites){
     for (auto &sprite : sprites){
         sf::FloatRect bounds = sprite.getGlobalBounds();
@@ -39,7 +56,13 @@ bool is_sprite(const sf::Vector2f &mouse, const std::vector<sf::Sprite> &sprites
     }
     return false;
 }
-
+/**
+ * @brief Get the index of the current sprite from the sprites list
+ * 
+ * @param mouse 
+ * @param sprites the list of sprites 
+ * @return int 
+ */
 int get_sprite_index(const sf::Vector2f &mouse, const std::vector<sf::Sprite> &sprites){
     for (int i = 0; i < sprites.size(); ++ i){
         sf::FloatRect bounds = sprites[i].getGlobalBounds();
@@ -48,7 +71,10 @@ int get_sprite_index(const sf::Vector2f &mouse, const std::vector<sf::Sprite> &s
     }
     return -1;
 }
-
+/**
+ * @brief Get the lines to modify
+ * 
+ */
 void get_lines_to_modify(){
     if (lineas.size() > 0){
         for (int i = 0; i < lineas.size(); ++i){
@@ -57,7 +83,11 @@ void get_lines_to_modify(){
         }
     }
 }
-
+/**
+ * @brief modifies the position of the sprite selected
+ * 
+ * @param mouse 
+ */
 void modify_sprite_position(const sf::Vector2f &mouse){
     sprites[global_sprite_index].setPosition(mouse);
     vertices[global_sprite_index].x = mouse.x;
@@ -69,12 +99,21 @@ void modify_sprite_position(const sf::Vector2f &mouse){
     }
     sprite_selected = true;
 }
-
+/**
+ * @brief assigns random weights to the edges
+ * 
+ */
 void assign_random_weights_to_edge(){        
     for (auto &a : aristas)
         a.peso = random() % MAX_WEIGHT;
 }
 //colorear aristas del mst
+/**
+ * @brief Create a lineas coloreadas from mst
+ * 
+ * @param mst Prim or Kruskal
+ * @param color sf::Color
+ */
 void create_lineas_coloreadas(const std::vector<edge> &mst, const sf::Color &color ){
 
     for (auto &elem: mst){
@@ -86,6 +125,11 @@ void create_lineas_coloreadas(const std::vector<edge> &mst, const sf::Color &col
 }
 
 //colorear aritas de compoenetes conexas
+/**
+ * @brief 
+ * 
+ * @param colores 
+ */
 void color_conex_components(const std::pair<std::vector<int>, unsigned int> &colores){
     //definimos los colores para dibujar las componentes conexas
     std::vector<sf::Color> drawing_colors;
@@ -112,6 +156,10 @@ void color_conex_components(const std::pair<std::vector<int>, unsigned int> &col
     }
 }
 //texto
+/**
+ * @brief Create a text to display object
+ * 
+ */
 void create_text_to_display(){
     for (auto &arista : aristas){
         sf::Text texto;
@@ -122,7 +170,10 @@ void create_text_to_display(){
         textos_peso.push_back(texto);
     }
 }
-
+/**
+ * @brief 
+ * 
+ */
 void update_text_position(){
     float new_x_1, new_x_2, new_y_1,new_y_2, new_text_x, new_text_y;
     for (int i = 0; i < aristas.size();  ++i){ //en teoria, los arreglos del texto y de las aristas son de la misma longitud
@@ -139,6 +190,12 @@ void update_text_position(){
     }
 }
 //llamar algoritmos
+/**
+ * @brief 
+ * 
+ * @param type 
+ * @return std::vector<edge> 
+ */
 std::vector<edge> call_mst(std::string type){
     if (aristas[0].peso == 0)
         assign_random_weights_to_edge();
@@ -151,7 +208,11 @@ std::vector<edge> call_mst(std::string type){
     }
     return mst;
 }
-
+/**
+ * @brief 
+ * 
+ * @param m_edges 
+ */
 void call_erdos_rentyi(bool m_edges = false){
     int n;
     std::cout << "Cuantos nodos quieres?: "; 
@@ -172,7 +233,10 @@ void call_erdos_rentyi(bool m_edges = false){
     assign_random_weights_to_edge();
     create_text_to_display();
 }
-
+/**
+ * @brief 
+ * 
+ */
 void call_random_conex_graph(){
     int n;
     std:: cout << "Cuantos nodos quieres?: ";
@@ -181,7 +245,11 @@ void call_random_conex_graph(){
     assign_random_weights_to_edge();
     create_text_to_display();
 }
-
+/**
+ * @brief 
+ * 
+ * @param binary_tree 
+ */
 void call_random_tree(bool binary_tree = false){
     int n;
     std::cout << "Cuantos nodos quieres? ";
@@ -190,7 +258,11 @@ void call_random_tree(bool binary_tree = false){
     assign_random_weights_to_edge();
     create_text_to_display();
 }
-
+/**
+ * @brief 
+ * 
+ * @return std::vector<int> 
+ */
 std::vector<int> call_get_parents(){
     int root_index;
     std::cout << "quien es la raiz? ";
@@ -199,6 +271,11 @@ std::vector<int> call_get_parents(){
 }
 
 //dar parametros para el visualizador para dibujar cosas en lugares random
+/**
+ * @brief  
+ * 
+ * @param window 
+ */
 void display_random_graph(const sf::RenderWindow &window){
                                 
         sf::Vector2u win_size = window.getSize();

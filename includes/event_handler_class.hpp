@@ -22,7 +22,10 @@ event_handler::event_handler(){
 
 event_handler::~event_handler(){
 }
-
+/**
+ * @brief clears the global vectors
+ * 
+ */
 void event_handler::clear_vectors(){
     aristas.clear();
     vertices.clear();
@@ -31,7 +34,12 @@ void event_handler::clear_vectors(){
     textos_peso.clear();
     lineas_coloreadas.clear();
 }
-
+/**
+ * @brief 
+ * 
+ * @param event 
+ * @param window 
+ */
 void event_handler::select_algorithms(const sf::Event &event, sf::RenderWindow &window){
    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Num0) || sf::Keyboard::isKeyPressed(sf::Keyboard::Numpad0))
         lineas_coloreadas.clear();
@@ -84,16 +92,29 @@ void event_handler::select_algorithms(const sf::Event &event, sf::RenderWindow &
         color_conex_components(colores);
         std::cout << "El numero de componentes conexas es: " << colores.second << "!!" << std::endl;
 
-        std::vector<int> parents = call_get_parents();
-        std::vector<std::pair<int, int>> parents_with_index;
-        for (int i = 0; i < parents.size(); ++i)
-            parents_with_index.push_back({i, parents[i]});
+        if (colores.second == 1){
+            std::vector<int> parents = call_get_parents();
+            if (!parents.empty()){
+            std::vector<std::pair<int, int>> parents_with_index;
+            for (int i = 0; i < parents.size(); ++i)
+                parents_with_index.push_back({i, parents[i]});
 
-        for (auto &elem : parents_with_index)
-            std::cout << "nodo: " << elem.first << " Padre: " << elem.second << std::endl;
+            for (auto &elem : parents_with_index)
+                std::cout << "nodo: " << elem.first << " Padre: " << elem.second << std::endl;
+            }
+            else
+                std::cout << "Hay un ciclo, no es arbol" << std::endl;
+        }
+        
+        // display_tree_by_parents(parents_with_index, window);
     }
 }
-
+/**
+ * @brief 
+ * 
+ * @param event 
+ * @param window 
+ */
 void event_handler::interactivity (const sf::Event &event, sf::RenderWindow &window){
     if (event.type == sf::Event::MouseButtonPressed && event.mouseButton.button == sf::Mouse::Left){
         sf::Vector2f mouse = window.mapPixelToCoords(sf::Mouse::getPosition(window));
