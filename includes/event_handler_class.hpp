@@ -95,12 +95,12 @@ void event_handler::select_algorithms(const sf::Event &event, sf::RenderWindow &
         if (colores.second == 1){
             std::vector<int> parents = call_get_parents();
             if (!parents.empty()){
-            std::vector<std::pair<int, int>> parents_with_index;
-            for (int i = 0; i < parents.size(); ++i)
-                parents_with_index.push_back({i, parents[i]});
+                std::vector<std::pair<int, int>> parents_with_index;
+                for (int i = 0; i < parents.size(); ++i)
+                    parents_with_index.push_back({i, parents[i]});
 
-            for (auto &elem : parents_with_index)
-                std::cout << "nodo: " << elem.first << " Padre: " << elem.second << std::endl;
+                for (auto &elem : parents_with_index)
+                    std::cout << "nodo: " << elem.first << " Padre: " << elem.second << std::endl;
             }
             else
                 std::cout << "Hay un ciclo, no es arbol" << std::endl;

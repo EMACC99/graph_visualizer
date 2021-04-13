@@ -62,6 +62,8 @@ El programa tiene por ahora, tres funcionalidades basicas:
 * Ejecutar Erdős–Rényi con m aristas -> tecla `4` o `Numpad4`
 * Generar un Arbol Aleaotrio con n vertices -> tecla `5` o `Numpad5`
 * Generar una Grafica Conexa aleatoria con n vertices -> tecla `6` o `Numpad6`
+* Detectar numero de componentes conexas y colorearlas -> tecla `7` o `Numpad7`
+    * Si es solo una compoenente conexa, va a daterminar si es un arbol dada una raiz e imprime la lista de padres.
 
 La entrada de algunos de los algoritmos a visualizar, se tiene que dar en consola
 ## Programa
@@ -76,7 +78,7 @@ Y despues de ejecutar Prim:
 
 ![Prim](Images/prim_mst.png)
 
-Ejecutando el de Krsukal
+Ejecutando el de Krsukal:
 
 ![Kruskal](Images/kruskal_mst.png)
 
@@ -84,3 +86,11 @@ Los de los unit test:
 
 ![UnitTest](Images/unit_test.png)
 
+Compoenentes Conexas:
+![Compoenentes_conexas](Images/Componentes_conexas.png)
+
+Deteccion de Ciclos:
+![deteccion_de_ciclos](Images/deteccion_de_ciclos.png)
+
+Lista de padres:
+![lista_padres](Images/lista_de_padres.png)
