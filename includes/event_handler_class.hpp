@@ -89,7 +89,7 @@ void event_handler::select_algorithms(const sf::Event &event, sf::RenderWindow &
     else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Num7) || sf::Keyboard::isKeyPressed(sf::Keyboard::Numpad7)){
         lineas_coloreadas.clear();
         std::pair<std::vector<int>, unsigned int> colores = componentes_conexas();
-        color_conex_components(colores);
+        
         std::cout << "El numero de componentes conexas es: " << colores.second << "!!" << std::endl;
 
         if (colores.second == 1){
@@ -101,12 +101,13 @@ void event_handler::select_algorithms(const sf::Event &event, sf::RenderWindow &
 
                 for (auto &elem : parents_with_index)
                     std::cout << "nodo: " << elem.first << " Padre: " << elem.second << std::endl;
+                
+                display_tree_by_parents(parents_with_index, window);
             }
             else
                 std::cout << "Hay un ciclo, no es arbol" << std::endl;
         }
-        
-        // display_tree_by_parents(parents_with_index, window);
+        color_conex_components(colores);
     }
 }
 /**

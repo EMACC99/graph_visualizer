@@ -1,5 +1,7 @@
 #pragma once
 
+#include <unordered_map>
+
 #include "node.hpp"
 #include "edge.hpp"
 #include "globals.hpp"
@@ -12,7 +14,7 @@
 #define MAX_WEIGHT 25; 
 //fuciones de ayuda para dibujar y ser interactivos
 /**
- * @brief Create a sprite object
+ * @brief Creates a sprite
  * 
  * @param mouse 
  * @return sf::Sprite 
@@ -25,7 +27,7 @@ sf::Sprite create_sprite(const sf::Vector2f &mouse){
     return sprite;
 }
 /**
- * @brief Create a node object
+ * @brief Creates a node
  * 
  * @param mouse 
  */
@@ -40,7 +42,7 @@ void create_node(const sf::Vector2f &mouse){
     vertices.push_back(vertice);
 }
 /**
- * @brief Checks if it is a sprite object
+ * @brief Checks if it is a sprite
  * 
  * @param mouse 
  * @param sprites 
@@ -126,7 +128,7 @@ void create_lineas_coloreadas(const std::vector<edge> &mst, const sf::Color &col
 
 //colorear aritas de compoenetes conexas
 /**
- * @brief 
+ * @brief Random Colorsfor coloring the conex components
  * 
  * @param colores 
  */
@@ -157,7 +159,7 @@ void color_conex_components(const std::pair<std::vector<int>, unsigned int> &col
 }
 //texto
 /**
- * @brief Create a text to display object
+ * @brief Creates the text to be displayed
  * 
  */
 void create_text_to_display(){
@@ -191,7 +193,7 @@ void update_text_position(){
 }
 //llamar algoritmos
 /**
- * @brief 
+ * @brief handles the calling fot the Prim adn Kruskal Algorithms
  * 
  * @param type 
  * @return std::vector<edge> 
@@ -209,7 +211,7 @@ std::vector<edge> call_mst(std::string type){
     return mst;
 }
 /**
- * @brief 
+ * @brief handles the inputs and callig of both types of the erdos rentyi algorithm
  * 
  * @param m_edges 
  */
@@ -234,7 +236,7 @@ void call_erdos_rentyi(bool m_edges = false){
     create_text_to_display();
 }
 /**
- * @brief 
+ * @brief handles the inputs and calling for the random conex graph inplementations
  * 
  */
 void call_random_conex_graph(){
@@ -246,7 +248,7 @@ void call_random_conex_graph(){
     create_text_to_display();
 }
 /**
- * @brief 
+ * @brief call the random tree implementation
  * 
  * @param binary_tree 
  */
@@ -259,7 +261,7 @@ void call_random_tree(bool binary_tree = false){
     create_text_to_display();
 }
 /**
- * @brief 
+ * @brief calls the get_parents function for trees
  * 
  * @return std::vector<int> 
  */
@@ -272,7 +274,7 @@ std::vector<int> call_get_parents(){
 
 //dar parametros para el visualizador para dibujar cosas en lugares random
 /**
- * @brief  
+ * @brief  displays the components in random positions on the canvas
  * 
  * @param window 
  */
@@ -301,4 +303,39 @@ void display_random_graph(const sf::RenderWindow &window){
             lineas.push_back(sf::Vertex(pos1));
             lineas.push_back(sf::Vertex(pos2));
         }
+}
+/**
+ * @brief 
+ * 
+ * @param parents_with_index
+ * @param window 
+ */
+void display_tree_by_parents(std::vector<std::pair<int, int>> parents_with_index, const sf::RenderWindow &window){
+    sf::Vector2u win_size = window.getSize();
+    
+    std::sort(parents_with_index.begin(), parents_with_index.end(),  //los ordenamos por padre
+    [](const std::pair<int, int>&i, const std::pair<int, int>&j){
+        return i.second < j.second;
+    }
+    );
+
+    std::unordered_map<int, int> parent_count; //necesito saber cuantos hijos tiene cada quien para distribuirlos en la visualizacion
+
+    for (auto &elem : parents_with_index){
+        if (parent_count.find(elem.second) == parent_count.end()) //equivale a hacer if key not in dict en python
+            parent_count.insert({elem.second, 1});
+        else
+            parent_count[elem.second] += 1;
+    }
+
+    sf::Vector2f root_possition = {win_size.x/2, 10};
+    global_sprite_index = parents_with_index[0].first; //sacamos el index para el sprite y le ponemos su nueva posicion
+    get_lines_to_modify();
+    modify_sprite_position(root_possition);
+    sprite_selected = false;
+
+    
+
+    update_text_position();
+
 }
