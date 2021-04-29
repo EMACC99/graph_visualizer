@@ -109,6 +109,16 @@ void event_handler::select_algorithms(const sf::Event &event, sf::RenderWindow &
         }
         color_conex_components(colores);
     }
+
+    else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Num8) || sf::Keyboard::isKeyPressed(sf::Keyboard::Numpad8)){
+       std::vector<int> parents = call_get_parents();
+       if (!parents.empty()){
+           node lca = call_lca_lite(parents);
+           std::cout << "El LCA es " << lca.id << std::endl;
+       }
+       else
+        std::cout << "Hay, un ciclo, no es arbol" << std::endl;
+    }
 }
 /**
  * @brief handles the interactivity for the visualizer
@@ -117,15 +127,15 @@ void event_handler::select_algorithms(const sf::Event &event, sf::RenderWindow &
  * @param window 
  */
 void event_handler::interactivity (const sf::Event &event, sf::RenderWindow &window){
-    if (event.type == sf::Event::MouseButtonPressed && event.mouseButton.button == sf::Mouse::Left){
+    if (event.type == sf::Event::MouseButtonPressed && event.mouseButton.button == sf::Mouse::Left){ //si quiero poner un sprite
         sf::Vector2f mouse = window.mapPixelToCoords(sf::Mouse::getPosition(window));
 
-        if (sprites.size() > 0){
-            if (is_sprite(mouse, sprites)){
+        if (sprites.size() > 0){ //si ya hay sprites
+            if (is_sprite(mouse, sprites)){ //hay que checar que no lo este seleccionando
                 int index = get_sprite_index(mouse, sprites);
                 std::cout << "Mira!, el sprite " << index << "!!!" << std::endl;
 
-                if(sprite_selected){
+                if(sprite_selected){ //si tengo un sprite seleccionado, dibuna ya la linea
                     mouse_points.push_back(mouse);
                     connected_lines.push_back(mouse_points);
                     node_index.push_back(index);

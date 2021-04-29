@@ -10,6 +10,7 @@
 #include "../algorithms/kruskal.hpp"
 #include "../algorithms/prim3.hpp"
 #include "../algorithms/componentes_conexas.hpp"
+#include "../algorithms/LCA.hpp"
 
 #define MAX_WEIGHT 25; 
 //fuciones de ayuda para dibujar y ser interactivos
@@ -272,6 +273,17 @@ std::vector<int> call_get_parents(){
     return get_parents(vertices[root_index]);
 }
 
+node call_lca_lite(const std::vector<int> &padres){
+    int v_id,u_id;
+    std::cout << "Id del primer nodo: ";
+    std::cin >> v_id;
+    std::cout << "Id del segundo nodo: ";
+    std::cin >> u_id;
+
+    node u = vertices[u_id],v = vertices[v_id];
+    return lca_naive(padres, u, v);
+}
+
 //dar parametros para el visualizador para dibujar cosas en lugares random
 /**
  * @brief  displays the components in random positions on the canvas
@@ -328,13 +340,20 @@ void display_tree_by_parents(std::vector<std::pair<int, int>> parents_with_index
             parent_count[elem.second] += 1;
     }
 
+    // ahora tengo que contar cuantos nodos tiene cada nivel para repartirlo en la visualizacion
+    std::unordered_map<int, int> nodes_by_level = {{0, 1}}; //inizializamos con la raiz en el nivel 0
+    
+    int parent = -1, grandparent = -2;
+
+    for (int i = 0; i < parents_with_index.size(); ++i){
+        continue;
+    }
+
     sf::Vector2f root_possition = {win_size.x/2, 10};
     global_sprite_index = parents_with_index[0].first; //sacamos el index para el sprite y le ponemos su nueva posicion
     get_lines_to_modify();
     modify_sprite_position(root_possition);
     sprite_selected = false;
-
-    
 
     update_text_position();
 
