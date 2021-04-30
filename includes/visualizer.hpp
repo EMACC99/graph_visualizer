@@ -21,7 +21,7 @@ private:
 
                 window.clear();
                 if (is_test){
-                    display_random_graph(window);
+                    display_graph(window);
                     create_text_to_display();
                     update_text_position();
                     is_test = false;

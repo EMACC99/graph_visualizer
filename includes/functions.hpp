@@ -22,10 +22,15 @@
  */
 sf::Sprite create_sprite(const sf::Vector2f &mouse){
     sf::Sprite sprite;
-    sprite.setTexture(texture);
+    sprite.setTexture(blue_circle);
     sprite.setScale(0.01f, 0.01f);
     sprite.setPosition(mouse);
     return sprite;
+}
+
+void make_sprite_red(sf::Sprite &sprite){
+    sprite.setTexture(red_circle);
+    sprite.setScale(0.04f, 0.04f);
 }
 /**
  * @brief Creates a node
@@ -290,7 +295,7 @@ node call_lca_lite(const std::vector<int> &padres){
  * 
  * @param window 
  */
-void display_random_graph(const sf::RenderWindow &window){
+void display_graph(const sf::RenderWindow &window){
                                 
         sf::Vector2u win_size = window.getSize();
         for (auto &v : vertices){
@@ -356,5 +361,5 @@ void display_tree_by_parents(std::vector<std::pair<int, int>> parents_with_index
     sprite_selected = false;
 
     update_text_position();
-
+    make_sprite_red(sprites[parents_with_index[0].first]);
 }

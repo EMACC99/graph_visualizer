@@ -19,7 +19,8 @@ std::string mouse_button = "";
 bool is_test = false;
 
 //cosas para dibujar
-sf::Texture texture;
+sf::Texture blue_circle;
+sf::Texture red_circle;
 sf::Font font;
 
 std::vector<sf::Text> textos_peso;

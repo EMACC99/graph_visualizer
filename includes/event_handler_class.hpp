@@ -62,28 +62,28 @@ void event_handler::select_algorithms(const sf::Event &event, sf::RenderWindow &
         window.clear();
         clear_vectors();
         call_erdos_rentyi();
-        display_random_graph(window);
+        display_graph(window);
         update_text_position();
     }
     else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Num4) || sf::Keyboard::isKeyPressed(sf::Keyboard::Numpad4)){
         window.clear();
         clear_vectors();
         call_erdos_rentyi(true);
-        display_random_graph(window);
+        display_graph(window);
         update_text_position();
     }
     else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Num5) || sf::Keyboard::isKeyPressed(sf::Keyboard::Numpad5)){
         window.clear();
         clear_vectors();
         call_random_tree();
-        display_random_graph(window);
+        display_graph(window);
         update_text_position();
     }
     else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Num6) || sf::Keyboard::isKeyPressed(sf::Keyboard::Numpad6)){
         window.clear();
         clear_vectors();
         call_random_conex_graph();
-        display_random_graph(window);
+        display_graph(window);
         update_text_position();
     }
     else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Num7) || sf::Keyboard::isKeyPressed(sf::Keyboard::Numpad7)){
@@ -115,6 +115,7 @@ void event_handler::select_algorithms(const sf::Event &event, sf::RenderWindow &
        if (!parents.empty()){
            node lca = call_lca_lite(parents);
            std::cout << "El LCA es " << lca.id << std::endl;
+           make_sprite_red(sprites[lca.id]);
        }
        else
         std::cout << "Hay, un ciclo, no es arbol" << std::endl;
