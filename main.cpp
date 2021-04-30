@@ -21,7 +21,7 @@ int main(int argc, char *argv[]){
     }
 
     //cargar las texturas
-    if (!texture.loadFromFile("Assets/blue-circle.png")){
+    if (!blue_circle.loadFromFile("Assets/blue-circle.png") || !red_circle.loadFromFile("Assets/red-circle.png")){
         std::cout << "Error con textura" << std::endl;
         return 0; // si falla al cargar las texturas, termina la ejecucion
     }
