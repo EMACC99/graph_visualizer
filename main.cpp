@@ -8,16 +8,15 @@
 
 int main(int argc, char *argv[]){
     srand(time(NULL)); //semilla pal random
-    
+
     argh::parser cmdl(argv);
     
     if (cmdl[{"-t", "--test"}]){
-    test();
-    is_test = true;    
+        test();
+        is_test = true;    
     }
-    
-    else if (argc > 2){ //si me pasas muchos argumentos o uno que no es, continua con el programa
-        std::cout << "muchos argumentos, solo quiero uno >:(" << std::endl;
+    else { //si me pasas muchos argumentos o uno que no es, continua con el programa
+        std::cout << "Argumentos no aceptados" << std::endl;
     }
 
     //cargar las texturas
