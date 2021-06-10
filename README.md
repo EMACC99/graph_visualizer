@@ -30,7 +30,7 @@ Y automaticamente generara el binario llamado `sfml-app`
 ### A Mano:
 Si no se desea usar el makefile, se puede hacer de la siguente manera
 ```
-g++ -c main.cpp includes/* algorithms/* tests/*
+g++ -c main.cpp
 
 g++ main.o -o sfml-app -lsfml-graphics -lsfml-window -lsfml-system
 ```

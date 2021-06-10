@@ -2,7 +2,7 @@ CC=g++
 CFLAGS=-c -Wall -std=c++14 -Ofast
 LDFLAGS=
 LIBFLAGS=-lsfml-graphics -lsfml-window -lsfml-system
-SOURCES=main.cpp includes/* algorithms/* tests/tests.hpp 
+SOURCES=main.cpp
 OBJECTS=$(SOURCES:.cpp=.o)
 EXECUTABLE=sfml-app
 BINDIR=/usr/bin
