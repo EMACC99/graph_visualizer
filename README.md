@@ -12,12 +12,13 @@ Para correr el programa se necesitan las siguentes librerias:
 ```
 libsfml-dev
 build-essential
+argh
 ```
 Se puede instalar con el manejador de paquetes preferido: eg 
 ```
 sudo apt install libsfml-dev build-essential
 ```
-
+`argh` viene incluida como submodulo de git
 ### Compilacion
 
 Para compilar el programa, se puede correr el `makefile` incluido, para eso, solo hay que poner en una terminal
@@ -34,11 +35,11 @@ g++ -c main.cpp
 
 g++ main.o -o sfml-app -lsfml-graphics -lsfml-window -lsfml-system
 ```
-**NOTA**: Al compilar el programa de esta manera, generara archivos `.gch` en los folders de `includes`, `algorithms` y `tests` por lo que si se quiere modificar y volver a compilar, hay que borrarlos. Esto se puede hacer de la siguiente manera:
+<!-- ~~**NOTA**: Al compilar el programa de esta manera, generara archivos `.gch` en los folders de `includes`, `algorithms` y `tests` por lo que si se quiere modificar y volver a compilar, hay que borrarlos. Esto se puede hacer de la siguiente manera:~~
 ```
 rm includes/*.gch algorithms/*.gch tests/*.gch
 ```
-Es por eso que se recomienda usar el `make`
+Es por eso que se recomienda usar el `make` -->
 ### Ejecucion
 Para ejecutar el programa, hay que poner en una terminal el siguente comando:
 ```
@@ -46,7 +47,11 @@ Para ejecutar el programa, hay que poner en una terminal el siguente comando:
 ```
 Para correr la parte de test de los algoritmos
 ```
-./sfml-app test
+./sfml-app --test
+```
+O
+```
+./sfml-app -t
 ```
 Si se le pasan otros argumentos, continuara la ejecucion normal del programa
 ## Funcionalidades
@@ -55,6 +60,7 @@ El programa tiene por ahora, tres funcionalidades basicas:
 * Unir dos nodos -> dando click a dos nodos
 * Mover los nodos -> presionando la rueda del mouse sobre el nodo y mover el mouse sin soltarlo
 * Borrar lo que esta en pantalla -> `Del`
+* Asignar pesos a las aristas -> `w`
 * Ejecutar Prim -> presionar tecla `1` o `Numpad1`
 * Ejecutar Kruskal -> presionar tecla `2` o `Numpad2`
 * Limpiear las lineas coloreadas -> presionar tecla `0` o `Numpad0`
