@@ -66,6 +66,7 @@ El programa tiene por ahora, tres funcionalidades basicas:
 * Unir dos nodos -> dando click a dos nodos
 * Mover los nodos -> presionando la rueda del mouse sobre el nodo y mover el mouse sin soltarlo
 * Borrar lo que esta en pantalla -> `Del`
+* Deseleccionar algun sprite -> `ESC`
 * Asignar pesos a las aristas -> `w`
 * Ejecutar Prim -> presionar tecla `1` o `Numpad1`
 * Ejecutar Kruskal -> presionar tecla `2` o `Numpad2`
