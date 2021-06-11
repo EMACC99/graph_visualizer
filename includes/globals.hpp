@@ -5,6 +5,7 @@
 #include <vector>
 #include <iostream>
 #include <algorithm>
+#include <sstream>
 
 #include "edge.hpp"
 #include "node.hpp"
@@ -38,3 +39,11 @@ std::vector<int> modified_lines_index;
 //cosas del grafo
 std::vector<node> vertices;
 std::vector<edge> aristas;
+
+template <typename T>
+std::string to_string_with_precision(const T a_value, const int n = 2){
+    std::ostringstream out;
+    out.precision(n);
+    out << std::fixed << a_value;
+    return out.str();
+}
