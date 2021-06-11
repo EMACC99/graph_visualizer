@@ -96,7 +96,7 @@ void get_lines_to_modify(){
  * 
  * @param mouse 
  */
-void modify_sprite_position(const sf::Vector2f &mouse){
+void modify_sprite_position(const sf::Vector2f &mouse){ //move to visualizer
     sprites[global_sprite_index].setPosition(mouse);
     vertices[global_sprite_index].x = mouse.x;
     vertices[global_sprite_index].y = mouse.y;
@@ -122,7 +122,7 @@ void assign_random_weights_to_edge(){
  * @param mst Prim or Kruskal
  * @param color sf::Color
  */
-void create_lineas_coloreadas(const std::vector<edge> &mst, const sf::Color &color ){
+void create_lineas_coloreadas(const std::vector<edge> &mst, const sf::Color &color ){ //move to visualizer
 
     for (auto &elem: mst){
         lineas_coloreadas.push_back(sf::Vertex(sprites[elem.nodes[0]].getPosition()));
@@ -138,7 +138,7 @@ void create_lineas_coloreadas(const std::vector<edge> &mst, const sf::Color &col
  * 
  * @param colores 
  */
-void color_conex_components(const std::pair<std::vector<int>, unsigned int> &colores){
+void color_conex_components(const std::pair<std::vector<int>, unsigned int> &colores){ //move to visualizer
     //definimos los colores para dibujar las componentes conexas
     std::vector<sf::Color> drawing_colors;
     uint8_t r,g,b; //uint8_t porque pues un color es de 8 bits por canal
@@ -168,11 +168,11 @@ void color_conex_components(const std::pair<std::vector<int>, unsigned int> &col
  * @brief Creates the text to be displayed
  * 
  */
-void create_text_to_display(){
+void create_text_to_display(){ //move to visualizer
     for (auto &arista : aristas){
         sf::Text texto;
         texto.setFont(font);
-        texto.setString(std::to_string(arista.peso));
+        texto.setString(to_string_with_precision(arista.peso));
         texto.setCharacterSize(16);
         texto.setFillColor(sf::Color::Blue);
         textos_peso.push_back(texto);
@@ -182,7 +182,7 @@ void create_text_to_display(){
  * @brief 
  * 
  */
-void update_text_position(){
+void update_text_position(){ //move to visualizer
     float new_x_1, new_x_2, new_y_1,new_y_2, new_text_x, new_text_y;
     for (int i = 0; i < aristas.size();  ++i){ //en teoria, los arreglos del texto y de las aristas son de la misma longitud
         new_x_1 = vertices[aristas[i].nodes[0]].x;
@@ -205,7 +205,7 @@ void update_text_position(){
  * @return std::vector<edge> 
  */
 std::vector<edge> call_mst(std::string type){
-    if (aristas[0].peso == 0)
+    if (aristas[aristas.size() - 1].peso == 0)
         assign_random_weights_to_edge();
     std::vector<edge> mst;
     if (vertices.size() > 0 && aristas.size() > 0){
@@ -295,7 +295,7 @@ node call_lca_lite(const std::vector<int> &padres){
  * 
  * @param window 
  */
-void display_graph(const sf::RenderWindow &window){
+void display_graph(const sf::RenderWindow &window){ //move to visualizer
                                 
         sf::Vector2u win_size = window.getSize();
         for (auto &v : vertices){
@@ -327,7 +327,7 @@ void display_graph(const sf::RenderWindow &window){
  * @param parents_with_index
  * @param window 
  */
-void display_tree_by_parents(std::vector<std::pair<int, int>> parents_with_index, const sf::RenderWindow &window){
+void display_tree_by_parents(std::vector<std::pair<int, int>> parents_with_index, const sf::RenderWindow &window){ //move to visualizer
     sf::Vector2u win_size = window.getSize();
     
     std::sort(parents_with_index.begin(), parents_with_index.end(),  //los ordenamos por padre
@@ -354,7 +354,7 @@ void display_tree_by_parents(std::vector<std::pair<int, int>> parents_with_index
         continue;
     }
 
-    sf::Vector2f root_possition = {win_size.x/2, 10};
+    sf::Vector2f root_possition = {static_cast<float>(win_size.x)/static_cast<float>(2), 10};
     global_sprite_index = parents_with_index[0].first; //sacamos el index para el sprite y le ponemos su nueva posicion
     get_lines_to_modify();
     modify_sprite_position(root_possition);
