@@ -10,7 +10,7 @@ int main(int argc, char *argv[]){
     srand(time(NULL)); //semilla pal random
 
     argh::parser cmdl(argv);
-    if (cmdl.size() > 0){
+    if (cmdl.size() > 1){
         if (cmdl[{"-t", "--test"}]){
             test();
             is_test = true;    
