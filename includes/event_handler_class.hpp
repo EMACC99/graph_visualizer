@@ -33,6 +33,8 @@ void event_handler::clear_vectors(){
     lineas.clear();
     textos_peso.clear();
     lineas_coloreadas.clear();
+    modified_lines_index.clear();
+    sprite_selected = false;
 }
 /**
  * @brief handler for selecting agorithms
@@ -128,6 +130,11 @@ void event_handler::select_algorithms(const sf::Event &event, sf::RenderWindow &
  * @param window 
  */
 void event_handler::interactivity (const sf::Event &event, sf::RenderWindow &window){
+    if (sprite_selected && mouse_button != "Middle"){
+        sf::Vector2f mouse = window.mapPixelToCoords(sf::Mouse::getPosition(window));
+        mouse_points[1] = mouse;
+        lineas[lineas.size() -1] = sf::Vertex(mouse_points[1]);
+    }
     if (event.type == sf::Event::MouseButtonPressed && event.mouseButton.button == sf::Mouse::Left){ //si quiero poner un sprite
         sf::Vector2f mouse = window.mapPixelToCoords(sf::Mouse::getPosition(window));
 
@@ -137,7 +144,7 @@ void event_handler::interactivity (const sf::Event &event, sf::RenderWindow &win
                 std::cout << "Mira!, el sprite " << index << "!!!" << std::endl;
 
                 if(sprite_selected){ //si tengo un sprite seleccionado, dibuja ya la linea
-                    mouse_points.push_back(mouse);
+                    mouse_points[1] = mouse;
                     connected_lines.push_back(mouse_points);
                     node_index.push_back(index);
                     connected_nodes_index.push_back(node_index);
@@ -148,8 +155,7 @@ void event_handler::interactivity (const sf::Event &event, sf::RenderWindow &win
                     arista.nodes = node_index;
                     arista.peso = 0;
                     aristas.push_back(arista);
-                    lineas.push_back(sf::Vertex(mouse_points[0]));
-                    lineas.push_back(sf::Vertex(mouse_points[1]));
+                    lineas[lineas.size() -1] = sf::Vertex(mouse_points[1]);
 
                     std::cout << "Una linea" << std::endl;
                     sprite_selected = false;
@@ -158,10 +164,13 @@ void event_handler::interactivity (const sf::Event &event, sf::RenderWindow &win
                 }
                 else if (!sprite_selected){
                     mouse_points.push_back(mouse);
+                    mouse_points.push_back(mouse);
                     std::cout << "aqui no hay linea" << std::endl;
                     connected_lines.push_back(mouse_points);
                     node_index.push_back(index);
                     sprite_selected = true;
+                    lineas.push_back(sf::Vertex(mouse_points[0]));
+                    lineas.push_back(sf::Vertex(mouse_points[1]));
                 }
             }
             else if (!sprite_selected)
@@ -216,6 +225,9 @@ void event_handler::interactivity (const sf::Event &event, sf::RenderWindow &win
     }
     else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Delete))
         event_handler::clear_vectors(); //borrar todo lo que esta en pantalla
+
+    else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape))
+        sprite_selected = false; //limipia la seleccion de spirte
     
     else if (sf::Keyboard::isKeyPressed(sf::Keyboard::W)){
         if (aristas.size() > 0){
@@ -225,10 +237,8 @@ void event_handler::interactivity (const sf::Event &event, sf::RenderWindow &win
             update_text_position();
         }
         else
-            std::cout << "No hay aristas a quien assignar pesos" << std::endl;
-        
+            std::cout << "No hay aristas a quien assignar pesos" << std::endl;        
     }
-
 
     else
         event_handler::select_algorithms(event, window);
