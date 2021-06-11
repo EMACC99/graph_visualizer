@@ -136,7 +136,7 @@ void event_handler::interactivity (const sf::Event &event, sf::RenderWindow &win
                 int index = get_sprite_index(mouse, sprites);
                 std::cout << "Mira!, el sprite " << index << "!!!" << std::endl;
 
-                if(sprite_selected){ //si tengo un sprite seleccionado, dibuna ya la linea
+                if(sprite_selected){ //si tengo un sprite seleccionado, dibuja ya la linea
                     mouse_points.push_back(mouse);
                     connected_lines.push_back(mouse_points);
                     node_index.push_back(index);
@@ -164,7 +164,7 @@ void event_handler::interactivity (const sf::Event &event, sf::RenderWindow &win
                     sprite_selected = true;
                 }
             }
-            else
+            else if (!sprite_selected)
                 create_node(mouse);
         }
         else
@@ -217,6 +217,19 @@ void event_handler::interactivity (const sf::Event &event, sf::RenderWindow &win
     else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Delete))
         event_handler::clear_vectors(); //borrar todo lo que esta en pantalla
     
+    else if (sf::Keyboard::isKeyPressed(sf::Keyboard::W)){
+        if (aristas.size() > 0){
+            textos_peso.clear();
+            assign_random_weights_to_edge();
+            create_text_to_display();
+            update_text_position();
+        }
+        else
+            std::cout << "No hay aristas a quien assignar pesos" << std::endl;
+        
+    }
+
+
     else
         event_handler::select_algorithms(event, window);
 }
