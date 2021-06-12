@@ -134,6 +134,13 @@ void event_handler::interactivity (const sf::Event &event, sf::RenderWindow &win
         sf::Vector2f mouse = window.mapPixelToCoords(sf::Mouse::getPosition(window));
         mouse_points[1] = mouse;
         lineas[lineas.size() -1] = sf::Vertex(mouse_points[1]);
+        if (is_sprite(mouse, sprites)){
+            global_sprite_index = get_sprite_index(mouse, sprites);
+            make_sprite_red(sprites[global_sprite_index]);
+        }
+        else
+            make_sprite_blue(sprites[global_sprite_index]);
+
     }
     if (event.type == sf::Event::MouseButtonPressed && event.mouseButton.button == sf::Mouse::Left){ //si quiero poner un sprite
         sf::Vector2f mouse = window.mapPixelToCoords(sf::Mouse::getPosition(window));
@@ -159,6 +166,7 @@ void event_handler::interactivity (const sf::Event &event, sf::RenderWindow &win
                     sprite_selected = false;
                     mouse_points.clear();
                     node_index.clear();
+                    make_sprite_blue(sprites[index]);
                 }
                 else if (!sprite_selected){
                     mouse_points.push_back(mouse);
