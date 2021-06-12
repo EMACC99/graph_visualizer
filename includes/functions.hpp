@@ -32,6 +32,11 @@ void make_sprite_red(sf::Sprite &sprite){
     sprite.setTexture(red_circle);
     sprite.setScale(0.04f, 0.04f);
 }
+
+void make_sprite_blue(sf::Sprite &sprite){
+    sprite.setTexture(blue_circle);
+    sprite.setScale(0.01f, 0.01f);
+}
 /**
  * @brief Creates a node
  * 
@@ -172,7 +177,7 @@ void create_text_to_display(){ //move to visualizer
     for (auto &arista : aristas){
         sf::Text texto;
         texto.setFont(font);
-        texto.setString(to_string_with_precision(arista.peso));
+        texto.setString(to_string_with_precision(arista.peso)); //funcion en globals.hpp
         texto.setCharacterSize(16);
         texto.setFillColor(sf::Color::Blue);
         textos_peso.push_back(texto);
