@@ -7,6 +7,10 @@
 
 ## Instrucciones de compilacion
 
+Primero, hay que clonar el repositorio
+```
+git clone https://github.com/EMACC99/graph_visualizer
+```
 ### Instalar la libreria:
 Para correr el programa se necesitan las siguentes librerias:
 ```
