@@ -145,9 +145,7 @@ void event_handler::interactivity (const sf::Event &event, sf::RenderWindow &win
 
                 if(sprite_selected){ //si tengo un sprite seleccionado, dibuja ya la linea
                     mouse_points[1] = mouse;
-                    connected_lines.push_back(mouse_points);
                     node_index.push_back(index);
-                    connected_nodes_index.push_back(node_index);
                     vertices[node_index[0]].arista_index.push_back(aristas.size());
                     vertices[node_index[1]].arista_index.push_back(aristas.size());
 
@@ -166,7 +164,6 @@ void event_handler::interactivity (const sf::Event &event, sf::RenderWindow &win
                     mouse_points.push_back(mouse);
                     mouse_points.push_back(mouse);
                     std::cout << "aqui no hay linea" << std::endl;
-                    connected_lines.push_back(mouse_points);
                     node_index.push_back(index);
                     sprite_selected = true;
                     lineas.push_back(sf::Vertex(mouse_points[0]));
@@ -226,9 +223,16 @@ void event_handler::interactivity (const sf::Event &event, sf::RenderWindow &win
     else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Delete))
         event_handler::clear_vectors(); //borrar todo lo que esta en pantalla
 
-    else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape))
-        sprite_selected = false; //limipia la seleccion de spirte
-    
+    // else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape)){
+    //     //ademas de deseleccionar el spite, hay que borrar la linea que sale de este, las cuales son las ultimas dos que se agregan
+    //     lineas.pop_back();
+    //     lineas.pop_back();
+
+    //     mouse_points.clear();
+    //     node_index.pop_back();
+
+    //     sprite_selected = false; //limipia la seleccion de spirte
+    // }
     else if (sf::Keyboard::isKeyPressed(sf::Keyboard::W)){
         if (aristas.size() > 0){
             textos_peso.clear();
