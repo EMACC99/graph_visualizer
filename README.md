@@ -22,8 +22,9 @@ Se puede instalar con el manejador de paquetes preferido: eg
 ```
 sudo apt install libsfml-dev build-essential
 ```
-`argh` viene incluida como submodulo de git
-Para tenerlo incluido, hay que ejecutar los siguentes comandos
+`argh` viene incluida como submodulo de git.
+
+Para eso, hay que ejecutar los siguentes comandos:
 
 ```
 git submodule init
