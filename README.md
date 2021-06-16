@@ -16,20 +16,33 @@ Para correr el programa se necesitan las siguentes librerias:
 ```
 libsfml-dev
 build-essential
-argh
+argh #incluida como submodulo
+gtest #incluida como submodulo
 ```
 Se puede instalar con el manejador de paquetes preferido: eg 
 ```
 sudo apt install libsfml-dev build-essential
 ```
-`argh` viene incluida como submodulo de git.
+`argh` y `gtest` viene incluida como submodulo de git.
 
-Para eso, hay que ejecutar los siguentes comandos:
+Para eso, se puede ejecutar el script de configuracion `automated_setup.sh` (Require sudo).
+
+Para hacerlo a mano, se necestian ejecutar los siguientes comandos:
 
 ```
 git submodule init
 git submodule update
+
+cd googletest #hay que compilar gtest
+mkdir build
+cd build
+cmake ..
+
+make
+
+sudo make install
 ```
+Para mas informacion sobre gtest y opciones de compilacion, puede consultar la [documentacion](https://github.com/google/googletest/blob/master/googletest/README.md)
 ### Compilacion
 
 Para compilar el programa, se puede correr el `makefile` incluido, para eso, solo hay que poner en una terminal
@@ -106,6 +119,8 @@ Los de los unit test:
 
 Compoenentes Conexas:
 ![Compoenentes_conexas](Images/Componentes_conexas.png)
+
+![SUS](Images/Componentes_conexas_2.png)
 
 Deteccion de Ciclos:
 ![deteccion_de_ciclos](Images/deteccion_de_ciclos.png)
