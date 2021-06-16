@@ -1,5 +1,7 @@
 #pragma once
 
+#include <gtest/gtest.h>
+
 #include "../algorithms/prim3.hpp"
 #include "../algorithms/kruskal.hpp"
 
