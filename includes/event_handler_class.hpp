@@ -79,7 +79,7 @@ void event_handler::select_algorithms(const sf::Event &event, sf::RenderWindow &
         clear_vectors();
         call_random_tree();
         display_graph(window);
-        update_text_position();
+        // update_text_position();
     }
     else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Num6) || sf::Keyboard::isKeyPressed(sf::Keyboard::Numpad6)){
         window.clear();
@@ -233,14 +233,15 @@ void event_handler::interactivity (const sf::Event &event, sf::RenderWindow &win
 
     // else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape)){
     //     //ademas de deseleccionar el spite, hay que borrar la linea que sale de este, las cuales son las ultimas dos que se agregan
+    //     mouse_points.clear();
     //     lineas.pop_back();
     //     lineas.pop_back();
 
-    //     mouse_points.clear();
     //     node_index.pop_back();
 
     //     sprite_selected = false; //limipia la seleccion de spirte
     // }
+
     else if (sf::Keyboard::isKeyPressed(sf::Keyboard::W)){
         if (aristas.size() > 0){
             textos_peso.clear();
