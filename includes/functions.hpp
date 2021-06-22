@@ -268,8 +268,8 @@ void call_random_tree(bool binary_tree = false){
     std::cout << "Cuantos nodos quieres? ";
     std::cin >> n;
     arbol_aleatorio(n, aristas, vertices);
-    assign_random_weights_to_edge();
-    create_text_to_display();
+    // assign_random_weights_to_edge();
+    // create_text_to_display();
 }
 /**
  * @brief calls the get_parents function for trees
@@ -289,8 +289,8 @@ node call_lca_lite(const std::vector<int> &padres){
     std::cin >> v_id;
     std::cout << "Id del segundo nodo: ";
     std::cin >> u_id;
-
     node u = vertices[u_id],v = vertices[v_id];
+    
     return lca_naive(padres, u, v);
 }
 
@@ -341,30 +341,60 @@ void display_tree_by_parents(std::vector<std::pair<int, int>> parents_with_index
     }
     );
 
-    std::unordered_map<int, int> parent_count; //necesito saber cuantos hijos tiene cada quien para distribuirlos en la visualizacion
-
-    for (auto &elem : parents_with_index){
-        if (parent_count.find(elem.second) == parent_count.end()) //equivale a hacer if key not in dict en python
-            parent_count.insert({elem.second, 1});
-        else
-            parent_count[elem.second] += 1;
-    }
-
+    //asignamos los niveles a los nodos
+    // assing_level_to_node(vertices, parents_with_index);
     // ahora tengo que contar cuantos nodos tiene cada nivel para repartirlo en la visualizacion
-    std::unordered_map<int, int> nodes_by_level = {{0, 1}}; //inizializamos con la raiz en el nivel 0
-    
-    int parent = -1, grandparent = -2;
-
-    for (int i = 0; i < parents_with_index.size(); ++i){
-        continue;
+    std::unordered_map<int, int> nodes_by_level = {};
+    for (int i = 0; i < vertices.size(); ++i){
+        std::unordered_map<int, int>::iterator it = nodes_by_level.find(vertices[i].heigth);
+        if (it == nodes_by_level.end())
+            nodes_by_level.insert({vertices[i].heigth, 1});
+        else
+            it  -> second ++;
     }
 
-    sf::Vector2f root_possition = {static_cast<float>(win_size.x)/static_cast<float>(2), 10};
+    float x_increment , y_increment = static_cast<float>(win_size.y / nodes_by_level.size());
+
+    sf::Vector2f root_possition = {static_cast<float>(win_size.x / 2), 10};
+
     global_sprite_index = parents_with_index[0].first; //sacamos el index para el sprite y le ponemos su nueva posicion
     get_lines_to_modify();
     modify_sprite_position(root_possition);
     sprite_selected = false;
+    
 
-    update_text_position();
+    std::vector<node> aux_vertices = vertices;
+
+    std::sort(aux_vertices.begin(), aux_vertices.end(), [](const node &i , const node &j){
+        return i.heigth < j.heigth;
+    });
+
+
+    int previous_parent = parents_with_index[0].second, increment = 1;
+    bool parent_changed = false;
+    int x_counter = 1, y_counter = 1;
+    for (int i = 1; i < vertices.size(); ++i){
+        if (aux_vertices[i].padre != previous_parent){
+            parent_changed = true;
+            x_counter = 1;
+            previous_parent = aux_vertices[i].padre;            
+            ++y_counter;
+        }
+        x_increment = static_cast<float>(win_size.x / (nodes_by_level[aux_vertices[i].heigth] + 1) );
+        sf::Vector2f new_position = {x_increment * x_counter, 30 * y_counter};
+        global_sprite_index = aux_vertices[i].id;
+        get_lines_to_modify();
+        modify_sprite_position(new_position);
+        sprite_selected = false;
+
+        if (parent_changed)
+            parent_changed = false;
+        
+        ++x_counter;
+    }
+
+    if (!textos_peso.empty())
+        update_text_position();
+
     make_sprite_red(sprites[parents_with_index[0].first]);
 }
