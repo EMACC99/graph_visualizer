@@ -56,6 +56,7 @@ void assign_parents(node &root, std::vector<int> &parents){
     for (auto &hijo :hijos){
         if (parents[vertices[hijo].id] == -1){
             parents[vertices[hijo].id] = root.id;
+            vertices[hijo].heigth = root.heigth + 1;
             assign_parents(vertices[hijo], parents);
             if (cycles)
                 return; 
@@ -70,17 +71,28 @@ void assign_parents(node &root, std::vector<int> &parents){
 std::vector<int>get_parents(node & root){
     std::vector<int> parents(vertices.size(), -1);
     parents[root.id] = -2;
+    root.heigth = 0;
     std::vector<int> hijos = get_vecinos(root);
     for (auto &hijo : hijos){
         if (parents[vertices[hijo].id] == -1){
             parents[vertices[hijo].id] = root.id;
+            vertices[hijo].heigth = root.heigth + 1;
             assign_parents(vertices[hijo], parents);
         }
     }
     // std::max_element(parents.begin(), parents.end());
     parents[root.id] = -1;
-    if (cycles)
+    for (int i = 0; i < vertices.size(); ++i)
+        vertices[i].padre = parents[i];
+
+    if (cycles){
         parents.clear();
+        for (auto &n : vertices){
+            n.heigth = 0;
+            n.padre = -1;
+        }
+    }
+
     return parents;
 }
 /**
