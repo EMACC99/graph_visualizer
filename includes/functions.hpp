@@ -361,7 +361,7 @@ void display_tree_by_parents(std::vector<std::pair<int, int>> parents_with_index
     get_lines_to_modify();
     modify_sprite_position(root_possition);
     sprite_selected = false;
-    
+    modified_lines_index.clear();
 
     std::vector<node> aux_vertices = vertices;
 
@@ -380,12 +380,19 @@ void display_tree_by_parents(std::vector<std::pair<int, int>> parents_with_index
             previous_parent = aux_vertices[i].padre;            
             ++y_counter;
         }
-        x_increment = static_cast<float>(win_size.x / (nodes_by_level[aux_vertices[i].heigth] + 1) );
-        sf::Vector2f new_position = {x_increment * x_counter, 30 * y_counter};
+        sf::Vector2f new_position;
+        if (nodes_by_level[aux_vertices[i].heigth] == 1)
+            new_position = {vertices[aux_vertices[i].padre].x, static_cast<float>(30* y_counter)};
+        
+        else{
+            x_increment = static_cast<float>(win_size.x / (nodes_by_level[aux_vertices[i].heigth] + 1) );
+            new_position = {x_increment * x_counter, static_cast<float>(30* y_counter)};
+        }
         global_sprite_index = aux_vertices[i].id;
         get_lines_to_modify();
         modify_sprite_position(new_position);
         sprite_selected = false;
+        modified_lines_index.clear();
 
         if (parent_changed)
             parent_changed = false;
