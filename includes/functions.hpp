@@ -382,11 +382,11 @@ void display_tree_by_parents(std::vector<std::pair<int, int>> parents_with_index
         }
         sf::Vector2f new_position;
         if (nodes_by_level[aux_vertices[i].heigth] == 1)
-            new_position = {vertices[aux_vertices[i].padre].x, static_cast<float>(30* y_counter)};
+            new_position = {vertices[aux_vertices[i].padre].x, static_cast<float>(50* y_counter)};
         
         else{
             x_increment = static_cast<float>(win_size.x / (nodes_by_level[aux_vertices[i].heigth] + 1) );
-            new_position = {x_increment * x_counter, static_cast<float>(30* y_counter)};
+            new_position = {x_increment * x_counter, static_cast<float>(50* y_counter)};
         }
         global_sprite_index = aux_vertices[i].id;
         get_lines_to_modify();

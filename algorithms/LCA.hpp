@@ -1,6 +1,7 @@
 #pragma once
 
 #include <set>
+#include <cmath>
 
 #include "../includes/node.hpp"
 #include "../includes/edge.hpp"
@@ -23,4 +24,13 @@ node lca_naive(const std::vector<int> &padres, node &u, node &v){
         if (ancestros_u_set.find(v) != ancestros_u_set.end())
             return v;
     }
+}
+
+
+int caclulate_section(const node &n){
+    return std::sqrt(n.heigth) - 1;
+}
+
+void factor_desconposition(const std::vector<int> &padres, node &u, node &v){
+    return;
 }
