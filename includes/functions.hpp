@@ -118,7 +118,7 @@ void modify_sprite_position(const sf::Vector2f &mouse){ //move to visualizer
  */
 void assign_random_weights_to_edge(){        
     for (auto &a : aristas)
-        a.peso = random() % MAX_WEIGHT;
+        a.peso = rand() % MAX_WEIGHT;
 }
 //colorear aristas del mst
 /**
