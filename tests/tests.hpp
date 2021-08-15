@@ -1,6 +1,10 @@
 #pragma once
 
+#ifdef linux
 #include <gtest/gtest.h>
+#endif
+
+
 
 #include "../algorithms/prim3.hpp"
 #include "../algorithms/kruskal.hpp"
