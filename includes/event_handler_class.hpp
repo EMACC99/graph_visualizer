@@ -112,7 +112,7 @@ void event_handler::select_algorithms(const sf::Event &event, sf::RenderWindow &
         color_conex_components(colores);
     }
 
-    else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Num8) || sf::Keyboard::isKeyPressed(sf::Keyboard::Numpad8)){
+    else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Num8) || sf::Keyboard::isKeyPressed(sf::Keyboard::Numpad8)){ //TODO rewirite function for diffent types of LCA
        std::vector<int> parents = call_get_parents();
        if (!parents.empty()){
            node lca = call_lca_lite(parents);
