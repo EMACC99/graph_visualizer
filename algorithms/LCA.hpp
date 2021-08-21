@@ -29,7 +29,7 @@ node lca_naive(const std::vector<int> &padres, node &u, node &v){
 
 
 int caclulate_section(const node &n){
-    return (int)std::sqrt(n.heigth) - 1;
+    return ceil(std::sqrt(n.heigth)) - 1;
 }
 
 void assing_section(){
