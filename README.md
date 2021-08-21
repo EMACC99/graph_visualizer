@@ -16,6 +16,7 @@ Para correr el programa se necesitan las siguentes librerias:
 ```
 libsfml-dev
 build-essential
+cmake #para construir los submodulos
 argh #incluida como submodulo
 gtest #incluida como submodulo
 ```
