@@ -3,10 +3,13 @@
 #include <set>
 #include <cmath>
 #include <map>
+#include <unordered_map>
 
 #include "../includes/node.hpp"
 #include "../includes/edge.hpp"
 #include "../includes/globals.hpp"
+
+#include "componentes_conexas.hpp" //de aqui importamos la de get vecinos
 
 
 node lca_naive(const std::vector<int> &padres, node &u, node &v){
@@ -82,4 +85,114 @@ node factor_deconposition(const std::vector<int> &padres, node &u, node &v){
     }
     
     return lca_naive(padres, B[u.id], B[v.id]); //hay que hacer el LCA naive hasta B[u];
+}
+
+std::vector<unsigned int> get_2i_ancestors(const std::vector<int> &parents, node &u){
+    std::vector<unsigned int> ancestros;
+    //TODO ver como poner los 2i ancestros en un arreglo de arreglos ~~no se me ocurrio nada, pero luego veo que onda~~
+    return ancestros;
+}
+
+
+std::vector<node> ancestros_potencias_de_dos(const std::vector<int> &padres, node &u, node &v){
+    std::vector<node> vertices_por_nivel = vertices;
+    std::sort(vertices_por_nivel.begin(), vertices_por_nivel.end(),
+    [](const node &i, const node &j){
+        return i.heigth < j.heigth;
+    });
+    std::vector<std::vector<unsigned int>> ancentros (vertices.size());
+    for (int i = 0; i < vertices.size(); ++i){
+        ancentros.at(i) = get_2i_ancestors(padres, vertices_por_nivel[i]);
+    }
+}
+
+//Range minimum query
+
+void dfs(std::map<int, bool> &visitado, std::vector<int> &caminito, const node &root){
+    // aqui hacemos el dfs recursivo para obtener el caminito
+    // no lo hice usando los otros que tenia porque me sirve de practica
+    std::vector<int> hijitos = get_vecinos(root);
+    for (auto hijito : hijitos){
+        if (!visitado[hijito]){
+            caminito.push_back(hijito);
+            dfs(visitado, caminito, vertices[hijito]);
+        }
+    }
+    
+}
+
+std::vector<int> generate_array_with_dfs(std::map<int, bool> &visitado, const node &root, const std::vector<std::pair<int, int>> &parents_with_index ){
+    std::vector<int> caminito;
+    std::vector<int> hijos = get_vecinos(root);
+    visitado[root.id] = true;
+
+    for (auto &h : hijos){
+        if(!visitado[h]){
+            caminito.push_back(h);
+            dfs(visitado, caminito, vertices[h]);
+        }
+    }
+    return caminito;
+}
+
+
+std::vector<int> get_min_index_for_rmq(const std::vector<int> &a, const int start_index){
+    std::vector<int> min_indexes;
+    for (int i = 0; std::pow(2, i) < a.size(); ++i){ //hay que guardar los menores indices
+            std::vector<int>::const_iterator it_begin = a.begin() + start_index;
+            std::vector<int>::const_iterator it_end  = a.begin() + (int)std::pow(2,i);
+            std::vector<int> aux (it_begin, it_end);
+            min_indexes.push_back(std::min_element (aux.begin(), aux.end(), [](const int &i, const int &j){ return vertices[i].heigth < vertices[j].heigth;}) - aux.begin());
+    }
+    return min_indexes;
+}
+
+node range_minimum_query(const std::vector<int>  &padres, node &u, node &v){
+    // localizar el sub arreglo que me de el caminito de vertices
+    //generar un arreglo recorriendo todo el arbol con DFS
+    // usar rmq para saber el LCA dados dos nodos
+    //profit
+
+    //cosas para el dfs
+    std::map<int, bool> visitado;
+    std::vector<std::pair<int, int>> parents_with_index;
+    for (int i = 0; i < padres.size(); ++i)
+        parents_with_index.push_back({i, padres[i]});
+    
+    std::sort(parents_with_index.begin(), parents_with_index.end(), 
+    [](const std::pair<int, int>&i, const std::pair<int, int>&j){
+        return i.second < j.second;
+    }
+    );
+
+    node root = vertices[parents_with_index[0].second];
+
+    std::vector<int> caminito = generate_array_with_dfs(visitado, root, parents_with_index);
+    
+    std::vector<std::vector<int>> min_indexes;
+    for (int i = 0; i < caminito.size(); ++i)
+        min_indexes.push_back(get_min_index_for_rmq(caminito, i)); //O(n^2) ik, buy i don't have any other ideas
+    
+    auto u_index_it = std::find(caminito.begin(), caminito.end(), u.id);
+    
+    auto v_index_it = std::find(caminito.begin(), caminito.end(), v.id);
+
+    int u_index = u_index_it - caminito.begin();
+
+    int v_index = v_index_it - caminito.begin();
+
+    node LCA;
+
+    if (u_index < v_index){
+        std::vector<int> bla = min_indexes[u_index];
+        int index_mas_cercano = static_cast<int> (round(log(v_index)/log(2)));
+
+    }
+    else{
+        std::vector<int> bla = min_indexes[v_index];
+        int index_mas_cercano = static_cast<int> (round(log(u_index)/log(2)));  
+        
+    }
+
+    return LCA;
 }
