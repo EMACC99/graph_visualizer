@@ -64,7 +64,7 @@ void assign_parents(node &root, std::vector<int> &parents){
     }
 }
 /**
- * @brief Construct a new std::vector<int>get parents object
+ * @brief Construct a new std::vector<int> get parents object
  * 
  * @param root 
  */
