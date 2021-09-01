@@ -18,8 +18,8 @@ $(EXECUTABLE): $(OBJECTS)
 clean:
 	rm *.o $(EXECUTABLE)
 
-install:
-	#install -s $(EXECUTABLE) $(BINDIR)
-	sudo cp -u $(EXECUTABLE) $(BINDIR)
-uninstall:
-	sudo rm $(BINDIR)/$(EXECUTABLE)
+# install:
+# 	#install -s $(EXECUTABLE) $(BINDIR)
+# 	sudo cp -u $(EXECUTABLE) $(BINDIR)
+# uninstall:
+# 	sudo rm $(BINDIR)/$(EXECUTABLE)
