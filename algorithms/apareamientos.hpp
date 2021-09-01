@@ -25,21 +25,28 @@ std::vector<int> apareamientos_iniciales(){
 }
 
 
-void bsf(const node &root){
-    std::vector<bool> visited(vertices.size(), false);
-    std::vector<int> queue;
-
+std::vector<int> bsf(const node &root, std::vector<int> &queue, std::vector<bool> &visited){
+    std::vector <int> caminito_bsf;
     visited[root.id] = true;
 
     queue.push_back(root.id);
-
-    std::vector<int> vecinos = get_vecinos(root);
-
-
+    while(!queue.empty()){
+        int s = queue.front();
+        caminito_bsf.push_back(s);
+        queue.pop_back();
+        for (auto &v : get_vecinos(vertices[s])){
+            if (!visited[v])
+                queue.push_back(v);
+        }
+    }
+    return caminito_bsf;
 }   
 
 std::vector<node> apareamientos(){
     // primero, tenemos que hacer los apareamientos iniciales
     std::vector<int> inital_matches = apareamientos_iniciales();
-    
+    std::vector<bool> visited(vertices.size(), false);
+    std::vector<int> queue;
+
+
 }
