@@ -25,7 +25,7 @@ std::vector<int> apareamientos_iniciales(){
 }
 
 
-std::vector<int> bfs(const node &root){
+std::vector<int> bfs(const node &root, std::vector<int> &matches){ 
     std::vector <int> caminito_bfs;
     std::vector<bool> visited(vertices.size(), false);
     std::vector<int> queue;
@@ -38,17 +38,41 @@ std::vector<int> bfs(const node &root){
         caminito_bfs.push_back(s);
         queue.pop_back();
         for (auto &v : get_vecinos(vertices[s])){
-            if (!visited[v])
+            if (!visited[v] && matches[v] == 0)
                 queue.push_back(v);
         }
     }
     return caminito_bfs;
 }   
 
-std::vector<node> apareamientos(){
+
+node get_first_not_matched_node(std::vector<int> &matches){
+    node not_matched;
+
+    for (int i = 0; i < matches.size(); ++i){
+        if (matches[i] == 0){
+            not_matched = vertices[i];
+            break;
+        }
+    }
+
+    return not_matched;
+}
+
+std::vector<int> apareamientos(){
     // primero, tenemos que hacer los apareamientos iniciales
     std::vector<int> inital_matches = apareamientos_iniciales();
     std::vector<bool> visited(vertices.size(), false);
-    std::vector<int> caminito_bfs = bfs(vertices[inital_matches[0]]);
+    // std::vector<int> caminito_bfs = bfs(vertices[inital_matches[0]]);
+    //ahora tenemos que sacar el nuevo camino de aumento con bfs
+    // lo que le tenemos que pasar es un nodo que no este en initial_matches
+    node first_not_matches = get_first_not_matched_node(inital_matches);
+    std::vector<int> matches = bfs(first_not_matches, inital_matches);
+    while (matches != inital_matches){
+        inital_matches = matches;
+        node first_not_matches = get_first_not_matched_node(inital_matches);
+        matches = bfs(first_not_matches, inital_matches);
+    }
 
+    return matches;
 }
