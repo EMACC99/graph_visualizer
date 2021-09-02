@@ -115,12 +115,17 @@ void event_handler::select_algorithms(const sf::Event &event, sf::RenderWindow &
     else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Num8) || sf::Keyboard::isKeyPressed(sf::Keyboard::Numpad8)){ //TODO rewirite function for diffent types of LCA
        std::vector<int> parents = call_get_parents();
        if (!parents.empty()){
-           node lca = call_lca_lite(parents);
+           node lca = call_lca(parents);
            std::cout << "El LCA es " << lca.id << std::endl;
            make_sprite_red(sprites[lca.id]);
        }
        else
         std::cout << "Hay, un ciclo, no es arbol" << std::endl;
+    }
+
+    else if(sf::Keyboard::isKeyPressed(sf::Keyboard::Num9) || sf::Keyboard::isKeyPressed(sf::Keyboard::Numpad9)){
+        std::vector<edge> matches = call_bipartite_matching();
+        
     }
 }
 /**
