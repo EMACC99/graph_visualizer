@@ -11,6 +11,7 @@
 #include "../algorithms/prim3.hpp"
 #include "../algorithms/componentes_conexas.hpp"
 #include "../algorithms/LCA.hpp"
+#include "../algorithms/apareamientos.hpp"
 
 #define MAX_WEIGHT 25; 
 //fuciones de ayuda para dibujar y ser interactivos
@@ -127,7 +128,7 @@ void assign_random_weights_to_edge(){
  * @param mst Prim or Kruskal
  * @param color sf::Color
  */
-void create_lineas_coloreadas(const std::vector<edge> &mst, const sf::Color &color ){ //move to visualizer
+void create_lineas_coloreadas(const std::vector<edge> &mst, const sf::Color &color = sf::Color::Red){ //move to visualizer
 
     for (auto &elem: mst){
         lineas_coloreadas.push_back(sf::Vertex(sprites[elem.nodes[0]].getPosition()));
@@ -283,7 +284,7 @@ std::vector<int> call_get_parents(){
     return get_parents(vertices[root_index]);
 }
 
-node call_lca_lite(const std::vector<int> &padres){
+node call_lca(const std::vector<int> &padres){
     int v_id,u_id;
     std::cout << "Id del primer nodo: ";
     std::cin >> v_id;
@@ -293,6 +294,23 @@ node call_lca_lite(const std::vector<int> &padres){
     
     // return lca_naive(padres, u, v);
     return factor_deconposition(padres, u, v);
+}
+
+std::vector<edge> call_bipartite_matching(){
+    std::vector<int> matches = apareamientos();
+    std::vector<edge> bipartite_edges;
+    
+    int size = matches.size()/2;
+    for (int i = 0; i < size; ++i){
+        edge a;
+        std::vector<int> nodes;
+        nodes.push_back(i);
+        nodes.push_back(matches[i]);
+        a.nodes = nodes;
+        a.colored = true;
+        bipartite_edges.push_back(a);
+    } 
+    return bipartite_edges;
 }
 
 //dar parametros para el visualizador para dibujar cosas en lugares random
