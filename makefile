@@ -1,5 +1,5 @@
 CC=g++
-CFLAGS=-c -Wall -Wpedantic -Wextra -Wno-sign-compare -std=c++17 -Ofast
+CFLAGS=-c -Wall -Wpedantic -Wextra -Wno-sign-compare -Wno-maybe-uninitialized -std=c++17 -Ofast
 LDFLAGS=
 LIBFLAGS=-lsfml-graphics -lsfml-window -lsfml-system
 SOURCES=main.cpp
