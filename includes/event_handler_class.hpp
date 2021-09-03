@@ -125,7 +125,7 @@ void event_handler::select_algorithms(const sf::Event &event, sf::RenderWindow &
 
     else if(sf::Keyboard::isKeyPressed(sf::Keyboard::Num9) || sf::Keyboard::isKeyPressed(sf::Keyboard::Numpad9)){
         std::vector<edge> matches = call_bipartite_matching();
-        
+        create_lineas_coloreadas(matches);
     }
 }
 /**

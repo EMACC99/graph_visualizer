@@ -128,7 +128,7 @@ void assign_random_weights_to_edge(){
  * @param mst Prim or Kruskal
  * @param color sf::Color
  */
-void create_lineas_coloreadas(const std::vector<edge> &mst, const sf::Color &color ){ //move to visualizer
+void create_lineas_coloreadas(const std::vector<edge> &mst, const sf::Color &color = sf::Color::Red){ //move to visualizer
 
     for (auto &elem: mst){
         lineas_coloreadas.push_back(sf::Vertex(sprites[elem.nodes[0]].getPosition()));
